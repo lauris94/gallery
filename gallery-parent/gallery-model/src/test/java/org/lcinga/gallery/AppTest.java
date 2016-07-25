@@ -1,4 +1,4 @@
-package gallery-model;
+package org.lcinga.gallery;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
