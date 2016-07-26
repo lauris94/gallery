@@ -1,4 +1,6 @@
-package org.lcinga.dao;
+package org.lcinga.dao.impl;
+
+import org.lcinga.dao.GenericDao;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -9,9 +11,9 @@ import java.lang.reflect.Type;
 /**
  * Created by lcinga on 2016-07-26.
  */
-public abstract class GenericDaoImpl<T> implements GenericDao<T> {
+public abstract class GenericDaoImpl<T, PK extends Serializable> implements GenericDao<T, PK> {
     @PersistenceContext
-    private EntityManager em;
+    protected EntityManager em;
 
     private Class<T> type;
 
@@ -22,19 +24,19 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
     }
 
     public T create(T t) {
-        this.em.persist(t);
+        em.persist(t);
         return t;
     }
 
-    public void delete(Object id) {
-        this.em.remove(this.em.getReference(type, id));
+    public void delete(PK id) {
+        em.remove(this.em.getReference(type, id));
     }
 
-    public T find(Object id) {
-        return (T) this.em.find(type, id);
+    public T find(PK id) {
+        return (T) em.find(type, id);
     }
 
     public T update(T t) {
-        return this.em.merge(t);
+        return em.merge(t);
     }
 }

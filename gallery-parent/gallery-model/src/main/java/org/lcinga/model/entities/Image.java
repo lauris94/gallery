@@ -2,14 +2,19 @@ package org.lcinga.model.entities;
 
 import org.lcinga.model.enums.ImageQuality;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,14 +22,17 @@ import java.util.Date;
  * Created by lcinga on 2016-07-25.
  */
 @Entity
+@Table(name = "LAURIS_IMAGE")
 public class Image implements Serializable {
 
     private static final long serialVersionUID = 2616280108275715821L;
 
     @Id
+    @GeneratedValue(generator = "idSeq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "idSeq", sequenceName = "LAURIS_ID_SEQ", allocationSize = 1)
     private long id;
 
-    @Column(name = "UPLOAD_DATE")
+    @Column(name = "UPLOAD_DATE", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date uploadDate;
 
@@ -36,9 +44,15 @@ public class Image implements Serializable {
 
     private String description;
 
+    @Version
+    private long version;
+
     @Lob
-    @Column(name="SMALL_IMAGE", nullable=false)
+    @Column(name = "SMALL_IMAGE", nullable = false)
     private byte[] smallImage;
+
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    private ImageSource imageSource;
 
     public long getId() {
         return id;
@@ -54,7 +68,6 @@ public class Image implements Serializable {
 
     public void setUploadDate(Date uploadDate) {
         this.uploadDate = uploadDate;
-
     }
 
     public ImageQuality getQuality() {
@@ -84,6 +97,22 @@ public class Image implements Serializable {
     public Image() {
     }
 
+    public ImageSource getImageSource() {
+        return imageSource;
+    }
+
+    public void setImageSource(ImageSource imageSource) {
+        this.imageSource = imageSource;
+    }
+
+    public long getVersion() {
+        return version;
+    }
+
+    public void setVersion(long version) {
+        this.version = version;
+    }
+
     @Override
     public String toString() {
         return "Image{" +
@@ -92,4 +121,5 @@ public class Image implements Serializable {
                 ", description='" + description + '\'' +
                 '}';
     }
+
 }
