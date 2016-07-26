@@ -25,7 +25,6 @@ import java.util.Date;
 @Entity
 @Table(name = "LAURIS_IMAGE")
 public class Image implements Serializable {
-
     private static final long serialVersionUID = 2616280108275715821L;
 
     @Id
@@ -130,5 +129,4 @@ public class Image implements Serializable {
                 ", description='" + description + '\'' +
                 '}';
     }
-
 }

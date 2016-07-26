@@ -16,7 +16,6 @@ import java.io.Serializable;
 @Entity
 @Table(name = "LAURIS_IMAGE_SOURCE")
 public class ImageSource implements Serializable{
-
     private static final long serialVersionUID = 2233890300529307847L;
 
     @Id

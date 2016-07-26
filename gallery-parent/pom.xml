@@ -13,14 +13,14 @@
     </modules>
 
     <properties>
-        <javax-persistence-version>2.1.1</javax-persistence-version>
+        <javax-persistence-version>1.0.0.Final</javax-persistence-version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.eclipse.persistence</groupId>
-                <artifactId>javax.persistence</artifactId>
+                <groupId>org.hibernate.javax.persistence</groupId>
+                <artifactId>hibernate-jpa-2.1-api</artifactId>
                 <version>${javax-persistence-version}</version>
             </dependency>
         </dependencies>
