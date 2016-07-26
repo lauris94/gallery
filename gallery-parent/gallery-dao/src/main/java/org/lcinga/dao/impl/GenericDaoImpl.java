@@ -29,7 +29,7 @@ public abstract class GenericDaoImpl<T, PK extends Serializable> implements Gene
     }
 
     public void delete(PK id) {
-        em.remove(this.em.getReference(type, id));
+        em.remove(em.getReference(type, id));
     }
 
     public T find(PK id) {

@@ -2,6 +2,7 @@ package org.lcinga.model.entities;
 
 import org.lcinga.model.enums.ImageQuality;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -51,7 +52,7 @@ public class Image implements Serializable {
     @Column(name = "SMALL_IMAGE", nullable = false)
     private byte[] smallImage;
 
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private ImageSource imageSource;
 
     public long getId() {
@@ -103,6 +104,14 @@ public class Image implements Serializable {
 
     public void setImageSource(ImageSource imageSource) {
         this.imageSource = imageSource;
+    }
+
+    public byte[] getSmallImage() {
+        return smallImage;
+    }
+
+    public void setSmallImage(byte[] smallImage) {
+        this.smallImage = smallImage;
     }
 
     public long getVersion() {
