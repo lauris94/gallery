@@ -1,52 +1,67 @@
 package org.lcinga.model.entities;
 
-import javax.persistence.*;
+import org.lcinga.model.enums.ImageQuality;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by lcinga on 2016-07-25.
  */
 @Entity
-public class Image {
+public class Image implements Serializable {
+
+    private static final long serialVersionUID = 2616280108275715821L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
 
-    @Column
-    private Date date;
+    @Column(name = "UPLOAD_DATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date uploadDate;
 
-    @Column(name = "image_code", nullable = false)
-    private String imageCode;
+    @Column(name = "EDIT_DATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date editDate;
 
-    @Column
-    private String quality;
+    private ImageQuality quality;
 
-    @Column
     private String description;
 
-    public int getId() {
+    @Lob
+    @Column(name="SMALL_IMAGE", nullable=false)
+    private byte[] smallImage;
+
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getUploadDate() {
+        return uploadDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setUploadDate(Date uploadDate) {
+        this.uploadDate = uploadDate;
 
     }
 
-    public String getQuality() {
+    public ImageQuality getQuality() {
         return quality;
     }
 
-    public void setQuality(String quality) {
+    public void setQuality(ImageQuality quality) {
         this.quality = quality;
     }
 
@@ -58,37 +73,21 @@ public class Image {
         this.description = description;
     }
 
-    public String getImageCode() {
-        return imageCode;
+    public Date getEditDate() {
+        return editDate;
     }
 
-    public void setImageCode(String imageCode) {
-        this.imageCode = imageCode;
+    public void setEditDate(Date editDate) {
+        this.editDate = editDate;
     }
 
-    protected Image() {
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Image image = (Image) o;
-
-        return imageCode.equals(image.imageCode);
-
-    }
-
-    @Override
-    public int hashCode() {
-        return imageCode.hashCode();
+    public Image() {
     }
 
     @Override
     public String toString() {
         return "Image{" +
-                "date=" + date +
+                "uploadDate=" + uploadDate +
                 ", quality='" + quality + '\'' +
                 ", description='" + description + '\'' +
                 '}';

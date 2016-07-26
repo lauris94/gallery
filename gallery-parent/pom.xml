@@ -9,10 +9,21 @@
 
     <modules>
         <module>gallery-model</module>
+        <module>gallery-dao</module>
     </modules>
 
     <properties>
         <javax-persistence-version>1.0.2</javax-persistence-version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>javax.persistence</groupId>
+                <artifactId>persistence-api</artifactId>
+                <version>${javax-persistence-version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
