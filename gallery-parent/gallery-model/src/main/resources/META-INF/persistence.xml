@@ -5,6 +5,7 @@
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
     <persistence-unit name="imageGalleryPU" transaction-type="JTA" >
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <class>org.lcinga.model.entities.Image</class>
         <class>org.lcinga.model.entities.ImageSource</class>
         <jta-data-source>jdbc/laurisDB</jta-data-source>
