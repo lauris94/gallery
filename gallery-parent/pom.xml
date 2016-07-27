@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.lcinga.gallery</groupId>
     <artifactId>gallery-parent</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>${project.version}</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -13,6 +13,7 @@
     </modules>
 
     <properties>
+        <project.version>1.0-SNAPSHOT</project.version>
         <javax-persistence-version>1.0.0.Final</javax-persistence-version>
     </properties>
 
@@ -25,5 +26,4 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
 </project>
