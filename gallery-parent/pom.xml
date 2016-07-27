@@ -18,6 +18,7 @@
         <project.version>1.0-SNAPSHOT</project.version>
         <javax-persistence-version>1.0.0.Final</javax-persistence-version>
         <org.springframework.version>4.3.1.RELEASE</org.springframework.version>
+        <spring-framework-bom>4.3.1.RELEASE</spring-framework-bom>
     </properties>
 
     <dependencyManagement>
@@ -30,7 +31,7 @@
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-framework-bom</artifactId>
-                <version>4.3.1.RELEASE</version>
+                <version>${spring-framework-bom}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -45,11 +46,5 @@
         </dependencies>
     </dependencyManagement>
 
-    <repositories>
-        <repository>
-            <id>io.spring.repo.maven.release</id>
-            <url>http://repo.spring.io/release/</url>
-            <snapshots><enabled>false</enabled></snapshots>
-        </repository>
-    </repositories>
+
 </project>

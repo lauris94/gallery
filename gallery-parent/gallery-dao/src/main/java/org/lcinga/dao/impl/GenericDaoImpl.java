@@ -1,7 +1,6 @@
 package org.lcinga.dao.impl;
 
 import org.lcinga.dao.GenericDao;
-import org.springframework.context.annotation.Bean;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

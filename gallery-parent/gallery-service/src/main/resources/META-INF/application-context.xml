@@ -7,8 +7,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 
-    <bean id="imageDaoBean" class="org.lcinga.dao.impl.ImageDaoImpl" >
-
-    </bean>
+    <bean id="mainBean" class="org.lcinga.service.Main"/>
 
 </beans>
