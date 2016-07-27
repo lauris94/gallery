@@ -12,9 +12,6 @@
         <property name="url" value="jdbc:oracle:thin@//oracle.insoft.dev:1521/laurisDB"/>
         <property name="username" value="mokymai"/>
         <property name="password" value="insoft_mokymai"/>
-
     </bean>
-
-
 
 </beans>
