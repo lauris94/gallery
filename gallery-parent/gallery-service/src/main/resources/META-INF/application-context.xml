@@ -7,6 +7,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 
-    <bean id="mainBean" class="org.lcinga.service.Main"/>
+    <context:component-scan base-package="org.lcinga.service"/>
 
 </beans>
