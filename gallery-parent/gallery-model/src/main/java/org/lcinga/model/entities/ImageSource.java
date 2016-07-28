@@ -2,10 +2,13 @@ package org.lcinga.model.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import java.io.Serializable;
@@ -19,6 +22,8 @@ public class ImageSource implements Serializable{
     private static final long serialVersionUID = 2233890300529307847L;
 
     @Id
+    @GeneratedValue(generator = "idSeq", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "idSeq", sequenceName = "LAURIS_IMAGESOURCE_ID_SEQ", allocationSize = 1)
     private long id;
 
     @Lob

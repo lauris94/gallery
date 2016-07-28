@@ -1,5 +1,6 @@
 package org.lcinga.dao.impl;
 
+import org.apache.log4j.Logger;
 import org.lcinga.dao.GenericDao;
 
 import javax.persistence.EntityManager;
@@ -15,6 +16,7 @@ public abstract class GenericDaoImpl<T, PK extends Serializable> implements Gene
     @PersistenceContext
     protected EntityManager em;
 
+    final Logger logger = Logger.getLogger(GenericDaoImpl.class);
     private Class<T> type;
 
     public GenericDaoImpl() {
@@ -25,6 +27,7 @@ public abstract class GenericDaoImpl<T, PK extends Serializable> implements Gene
 
     public T create(T t) {
         em.persist(t);
+        logger.info("The entity was created");
         return t;
     }
 
