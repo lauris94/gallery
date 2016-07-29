@@ -3,7 +3,7 @@ import org.junit.runner.RunWith;
 import org.lcinga.model.entities.Picture;
 import org.lcinga.model.entities.PictureSource;
 import org.lcinga.model.enums.ImageQuality;
-import org.lcinga.service.ImageService;
+import org.lcinga.service.PictureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Commit;
 import org.springframework.test.context.ContextConfiguration;
@@ -25,7 +25,7 @@ import java.util.Date;
 public class ServiceTests {
 
     @Autowired
-    private ImageService imageService;
+    private PictureService pictureService;
 
     @Test
     public void checkServiceBean() {
@@ -64,7 +64,7 @@ public class ServiceTests {
         picture.setDescription("blabla");
         picture.setEditDate(new Date());
         picture.setPictureSource(pictureSource);
-        imageService.createPicture(picture, 200, 200);
+        pictureService.createPicture(picture, 200, 200);
     }
 }
 

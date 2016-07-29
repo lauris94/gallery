@@ -2,14 +2,11 @@ package org.lcinga.service;
 
 import org.apache.log4j.Logger;
 import org.lcinga.dao.PictureDao;
-import org.lcinga.dao.impl.GenericDaoImpl;
 import org.lcinga.model.entities.Picture;
-import org.lcinga.model.entities.PictureSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -17,34 +14,31 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @Service
-public class ImageService {
+public class PictureService {
 
-    private final Logger logger = Logger.getLogger(ImageService.class);
+    private final Logger logger = Logger.getLogger(PictureService.class);
 
     @Autowired
     private PictureDao pictureDao;
 
     public void createPicture(Picture picture) {
-        picture.setSmallImage(picture.getPictureSource().getLargeImage());
         pictureDao.create(picture);
     }
 
     public void createPicture(Picture picture, int width, int height) {
         BufferedImage bufferedImage = convertPictureToBuffered(picture.getPictureSource().getLargeImage());
-        BufferedImage bufferedThumbnail;
 
         if (bufferedImage != null) {
-            bufferedThumbnail = createThumb(bufferedImage, width, height);
+            BufferedImage bufferedThumbnail = createThumb(bufferedImage, width, height);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             try {
                 ImageIO.write(bufferedThumbnail, "jpg", baos);
                 byte[] resizedImageBytes = baos.toByteArray();
                 picture.setSmallImage(resizedImageBytes);
             } catch (IOException e) {
-                logger.error("Thumbnail was not created. Saving large image for thumbnail...");
-                picture.setSmallImage(picture.getPictureSource().getLargeImage());
+                logger.error("Thumbnail was not created.");
             }
-            pictureDao.create(picture);
+            createPicture(picture);
         } else {
             logger.error("Picture was not created.");
         }
@@ -72,9 +66,9 @@ public class ImageService {
             w = (int) (h * inputAspect);
         }
         BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
-        Graphics2D g2 = bi.createGraphics();
+        java.awt.Graphics2D g2 = bi.createGraphics();
         g2.setRenderingHint(
-                RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+                java.awt.RenderingHints.KEY_INTERPOLATION, java.awt.RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         g2.drawImage(in, 0, 0, w, h, null);
         g2.dispose();
         return bi;

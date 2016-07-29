@@ -48,7 +48,7 @@ public class Picture implements Serializable {
     private long version;
 
     @Lob
-    @Column(name = "SMALL_IMAGE", nullable = false)
+    @Column(name = "SMALL_IMAGE")
     private byte[] smallImage;
 
     @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
