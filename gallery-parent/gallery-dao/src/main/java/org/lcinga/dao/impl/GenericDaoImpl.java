@@ -16,7 +16,7 @@ public abstract class GenericDaoImpl<T, PK extends Serializable> implements Gene
     @PersistenceContext
     protected EntityManager em;
 
-    final Logger logger = Logger.getLogger(GenericDaoImpl.class);
+    private final Logger logger = Logger.getLogger(GenericDaoImpl.class);
     private Class<T> type;
 
     public GenericDaoImpl() {

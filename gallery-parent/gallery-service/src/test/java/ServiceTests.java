@@ -1,7 +1,7 @@
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.lcinga.model.entities.PictureSource;
 import org.lcinga.model.entities.Picture;
+import org.lcinga.model.entities.PictureSource;
 import org.lcinga.model.enums.ImageQuality;
 import org.lcinga.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +29,6 @@ public class ServiceTests {
 
     @Test
     public void checkServiceBean() {
-//        imageService.init();
-
         PictureSource pictureSource = new PictureSource();
 
         File file = new File("C:\\pele.jpg");
@@ -41,6 +39,7 @@ public class ServiceTests {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
         //create FileInputStream which obtains input bytes from a file in a file system
         //FileInputStream is meant for reading streams of raw bytes such as image data. For reading streams of characters, consider using FileReader.
 
@@ -59,14 +58,13 @@ public class ServiceTests {
         byte[] bytes = bos.toByteArray();
 
         pictureSource.setLargeImage(bytes);
-        imageService.addImageSource(pictureSource);
         Picture picture = new Picture();
         picture.setUploadDate(new Date());
         picture.setQuality(ImageQuality.NORMAL);
         picture.setDescription("blabla");
         picture.setEditDate(new Date());
         picture.setPictureSource(pictureSource);
-        imageService.addImage(picture);
+        imageService.createPicture(picture, 200, 200);
     }
 }
 

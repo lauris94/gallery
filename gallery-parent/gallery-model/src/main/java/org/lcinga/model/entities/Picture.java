@@ -51,7 +51,7 @@ public class Picture implements Serializable {
     @Column(name = "SMALL_IMAGE", nullable = false)
     private byte[] smallImage;
 
-    @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private PictureSource pictureSource;
 
     public long getId() {

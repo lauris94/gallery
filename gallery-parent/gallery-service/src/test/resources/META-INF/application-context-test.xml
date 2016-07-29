@@ -35,5 +35,4 @@
     </bean>
 
     <bean id="imageDaoBean" class="org.lcinga.dao.impl.PictureDaoImpl"/>
-    <bean id="imageSourceDao" class="org.lcinga.dao.impl.PictureSourceDaoImpl"/>
 </beans>

@@ -1,9 +1,10 @@
 package org.lcinga.service;
 
-import org.lcinga.dao.PictureSourceDao;
+import org.apache.log4j.Logger;
 import org.lcinga.dao.PictureDao;
-import org.lcinga.model.entities.PictureSource;
+import org.lcinga.dao.impl.GenericDaoImpl;
 import org.lcinga.model.entities.Picture;
+import org.lcinga.model.entities.PictureSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,49 +18,45 @@ import java.io.InputStream;
 
 @Service
 public class ImageService {
-    private final int RESIZED_PICTURE_HEIGHT = 200;
-    private final int RESIZED_PICTURE_WIDTH = 200;
 
-    @Autowired
-    private PictureSourceDao pictureSourceDao;
+    private final Logger logger = Logger.getLogger(ImageService.class);
 
     @Autowired
     private PictureDao pictureDao;
 
-//    @PostConstruct
-//    public void init() {
-//        System.out.println("Veikiaaaa!!!");
-//    }
-
-    public void addImageSource(PictureSource imagesource){
-        pictureSourceDao.create(imagesource);
-    }
-
-    public void addImage(Picture picture) {
-        if (picture.getSmallImage() == null) {
-            BufferedImage bufferedImage = convertPictureToBuffered(picture.getPictureSource().getLargeImage());
-            BufferedImage resizedBufferedImage = createThumb(bufferedImage, RESIZED_PICTURE_WIDTH, RESIZED_PICTURE_HEIGHT);
-
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            try {
-                ImageIO.write(resizedBufferedImage, "jpg", baos);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            byte[] resizedImageBytes = baos.toByteArray();
-
-            picture.setSmallImage(resizedImageBytes);
-        }
+    public void createPicture(Picture picture) {
+        picture.setSmallImage(picture.getPictureSource().getLargeImage());
         pictureDao.create(picture);
     }
 
-    private BufferedImage convertPictureToBuffered(byte[] smallImage) {
-        InputStream in = new ByteArrayInputStream(smallImage);
+    public void createPicture(Picture picture, int width, int height) {
+        BufferedImage bufferedImage = convertPictureToBuffered(picture.getPictureSource().getLargeImage());
+        BufferedImage bufferedThumbnail;
+
+        if (bufferedImage != null) {
+            bufferedThumbnail = createThumb(bufferedImage, width, height);
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            try {
+                ImageIO.write(bufferedThumbnail, "jpg", baos);
+                byte[] resizedImageBytes = baos.toByteArray();
+                picture.setSmallImage(resizedImageBytes);
+            } catch (IOException e) {
+                logger.error("Thumbnail was not created. Saving large image for thumbnail...");
+                picture.setSmallImage(picture.getPictureSource().getLargeImage());
+            }
+            pictureDao.create(picture);
+        } else {
+            logger.error("Picture was not created.");
+        }
+    }
+
+    private BufferedImage convertPictureToBuffered(byte[] largeImage) {
+        InputStream in = new ByteArrayInputStream(largeImage);
         try {
             return ImageIO.read(in);
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;                    //sutvarkyti
+            logger.error("Large image not found!");
+            return null;
         }
     }
 
