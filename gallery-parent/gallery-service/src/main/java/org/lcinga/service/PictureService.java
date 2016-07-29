@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
+
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -66,7 +68,7 @@ public class PictureService {
             w = (int) (h * inputAspect);
         }
         BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
-        java.awt.Graphics2D g2 = bi.createGraphics();
+        Graphics2D g2 = bi.createGraphics();
         g2.setRenderingHint(
                 java.awt.RenderingHints.KEY_INTERPOLATION, java.awt.RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         g2.drawImage(in, 0, 0, w, h, null);

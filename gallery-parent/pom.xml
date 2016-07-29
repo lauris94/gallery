@@ -10,8 +10,8 @@
     <modules>
         <module>gallery-model</module>
         <module>gallery-dao</module>
-        <module>gallery-ui</module>
         <module>gallery-service</module>
+        <module>gallery-ui</module>
     </modules>
 
     <properties>
@@ -20,7 +20,8 @@
         <spring-framework-bom>4.3.1.RELEASE</spring-framework-bom>
         <entity-manager-version>5.2.1.Final</entity-manager-version>
         <log4j-version>1.2.17</log4j-version>
-
+        <wicket-version>7.4.0</wicket-version>
+        <slf4j-version>1.7.21</slf4j-version>
     </properties>
 
     <dependencyManagement>
@@ -46,6 +47,16 @@
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
                 <version>${log4j-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-core</artifactId>
+                <version>${wicket-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j-version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
