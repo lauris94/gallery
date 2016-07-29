@@ -23,8 +23,8 @@ import java.util.Date;
  * Created by lcinga on 2016-07-25.
  */
 @Entity
-@Table(name = "LAURIS_IMAGE")
-public class Image implements Serializable {
+@Table(name = "LAURIS_PICTURE")
+public class Picture implements Serializable {
     private static final long serialVersionUID = 2616280108275715821L;
 
     @Id
@@ -52,7 +52,7 @@ public class Image implements Serializable {
     private byte[] smallImage;
 
     @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private ImageSource imageSource;
+    private PictureSource pictureSource;
 
     public long getId() {
         return id;
@@ -94,15 +94,15 @@ public class Image implements Serializable {
         this.editDate = editDate;
     }
 
-    public Image() {
+    public Picture() {
     }
 
-    public ImageSource getImageSource() {
-        return imageSource;
+    public PictureSource getPictureSource() {
+        return pictureSource;
     }
 
-    public void setImageSource(ImageSource imageSource) {
-        this.imageSource = imageSource;
+    public void setPictureSource(PictureSource pictureSource) {
+        this.pictureSource = pictureSource;
     }
 
     public byte[] getSmallImage() {
@@ -123,7 +123,7 @@ public class Image implements Serializable {
 
     @Override
     public String toString() {
-        return "Image{" +
+        return "Picture{" +
                 "uploadDate=" + uploadDate +
                 ", quality='" + quality + '\'' +
                 ", description='" + description + '\'' +

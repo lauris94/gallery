@@ -6,8 +6,8 @@
              version="2.1">
     <persistence-unit name="imageGalleryPU" transaction-type="RESOURCE_LOCAL" >
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
-        <class>org.lcinga.model.entities.Image</class>
-        <class>org.lcinga.model.entities.ImageSource</class>
+        <class>org.lcinga.model.entities.Picture</class>
+        <class>org.lcinga.model.entities.PictureSource</class>
         <jta-data-source></jta-data-source>
         <properties>
             <property name="hbm2ddl.auto" value="update"/>

@@ -17,8 +17,8 @@ import java.io.Serializable;
  * Created by lcinga on 2016-07-26.
  */
 @Entity
-@Table(name = "LAURIS_IMAGE_SOURCE")
-public class ImageSource implements Serializable{
+@Table(name = "LAURIS_PICTURE_SOURCE")
+public class PictureSource implements Serializable{
     private static final long serialVersionUID = 2233890300529307847L;
 
     @Id
