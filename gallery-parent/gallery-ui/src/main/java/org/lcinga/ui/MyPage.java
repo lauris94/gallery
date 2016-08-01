@@ -11,7 +11,6 @@ public class MyPage extends WebPage {
     private static final long serialVersionUID = 8571087528033928032L;
 
     public MyPage() {
-
         add(new Label("helloMessage", "Hello WicketWorld!"));       //pirmas arg id, antras value
     }
 }

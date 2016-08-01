@@ -23,15 +23,4 @@
             <artifactId>slf4j-log4j12</artifactId>
         </dependency>
     </dependencies>
-
-    <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-            <resource>
-                <directory>src/main/html</directory>
-            </resource>
-        </resources>
-    </build>
 </project>
