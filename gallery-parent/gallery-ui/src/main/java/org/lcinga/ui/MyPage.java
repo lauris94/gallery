@@ -6,11 +6,12 @@ import org.apache.wicket.markup.html.basic.Label;
 /**
  * Created by lcinga on 2016-07-29.
  */
-public class HomePage extends WebPage {
+public class MyPage extends WebPage {
 
-    private static final long serialVersionUID = -6256063583666398520L;
+    private static final long serialVersionUID = 8571087528033928032L;
 
-    public HomePage() {
+    public MyPage() {
+
         add(new Label("helloMessage", "Hello WicketWorld!"));       //pirmas arg id, antras value
     }
 }

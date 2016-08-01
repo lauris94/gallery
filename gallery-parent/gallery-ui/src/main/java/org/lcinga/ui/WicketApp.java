@@ -1,6 +1,6 @@
 package org.lcinga.ui;
 
-import org.apache.wicket.Page;
+import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
 
 /**
@@ -8,15 +8,7 @@ import org.apache.wicket.protocol.http.WebApplication;
  */
 public class WicketApp extends WebApplication {
 
-    @Override
-    public Class<? extends Page> getHomePage() {
-        return HomePage.class;
-    }
-
-    @Override
-    public void init()
-    {
-        super.init();
-        // add your configuration here
+    public Class<? extends WebPage> getHomePage() {
+        return MyPage.class;
     }
 }

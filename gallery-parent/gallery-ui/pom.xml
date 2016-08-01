@@ -10,7 +10,7 @@
     </parent>
     <artifactId>gallery-ui</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <name>gallery-ui</name>
 
     <dependencies>
@@ -23,4 +23,15 @@
             <artifactId>slf4j-log4j12</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/html</directory>
+            </resource>
+        </resources>
+    </build>
 </project>
