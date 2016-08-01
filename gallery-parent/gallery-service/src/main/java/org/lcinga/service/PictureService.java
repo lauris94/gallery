@@ -14,14 +14,19 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 @Service
-public class PictureService {
+public class PictureService implements IPictureService{
 
     private final Logger logger = Logger.getLogger(PictureService.class);
 
+    private final PictureDao pictureDao;
+
     @Autowired
-    private PictureDao pictureDao;
+    public PictureService(PictureDao pictureDao) {
+        this.pictureDao = pictureDao;
+    }
 
     public void createPicture(Picture picture) {
         pictureDao.create(picture);
@@ -44,6 +49,14 @@ public class PictureService {
         } else {
             logger.error("Picture was not created.");
         }
+    }
+
+    public Picture getPicture(long id){
+        return pictureDao.find(id);
+    }
+
+    public List<Picture> getAllPictures(){
+        return pictureDao.getAll();
     }
 
     private BufferedImage convertPictureToBuffered(byte[] largeImage) {
