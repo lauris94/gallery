@@ -10,7 +10,7 @@ import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 public class WicketApp extends WebApplication {
 
     public Class<? extends Page> getHomePage() {
-        return MainPageTemplate.class;
+        return TemplatePage.class;
     }
 
     @Override

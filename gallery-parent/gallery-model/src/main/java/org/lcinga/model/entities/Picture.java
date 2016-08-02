@@ -44,6 +44,8 @@ public class Picture implements Serializable {
 
     private String description;
 
+    private String name;
+
     @Version
     private long version;
 
@@ -128,5 +130,13 @@ public class Picture implements Serializable {
                 ", quality='" + quality + '\'' +
                 ", description='" + description + '\'' +
                 '}';
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

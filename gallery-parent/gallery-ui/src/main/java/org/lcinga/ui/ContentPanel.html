@@ -5,20 +5,58 @@
 </head>
 <body>
 <wicket:panel>
-    <h1>Content</h1>
-
-    <table class="table table-bordered">
-        <tr wicket:id="listview">
-            <td>
-                <span wicket:id="uploadDate"/>
-                <span wicket:id="editDate"/>
-                <span wicket:id="description"/>
-                <span wicket:id="quality"/>
-                <a wicket:id="link"><img wicket:id="image" class="img-circle"/></a>
-            </td>
-        </tr>
-    </table>
-
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <table class="table table-bordered table-striped table-responsive">
+                <tr>
+                    <th class="text-center">
+                        <wicket:message key="img_th"></wicket:message>
+                    </th>
+                    <th class="text-center">
+                        <wicket:message key="name_th"></wicket:message>
+                    </th>
+                    <th class="text-center">
+                        <wicket:message key="description_th"></wicket:message>
+                    </th>
+                    <th class="text-center">
+                        <wicket:message key="uplDate_th"></wicket:message>
+                    </th>
+                    <th class="text-center">
+                        <wicket:message key="edtDate_th"></wicket:message>
+                    </th>
+                    <th class="text-center">
+                        <wicket:message key="quality_th"></wicket:message>
+                    </th>
+                </tr>
+                <tr wicket:id="listview" class="text-center">
+                    <td>
+                        <a wicket:id="link"><img wicket:id="image" class="img-thumbnail"/></a>
+                        <div wicket:id="modalWindow"></div><br/>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary"><wicket:message key="editButtonText"></wicket:message></button>
+                            <button type="button" class="btn btn-primary btn-danger"><wicket:message key="deleteButtonText"></wicket:message></button>
+                        </div>
+                    </td>
+                    <td>
+                        <span wicket:id="name"/>
+                    </td>
+                    <td>
+                        <span wicket:id="description"/>
+                    </td>
+                    <td>
+                        <span wicket:id="uploadDate"/>
+                    </td>
+                    <td>
+                        <span wicket:id="editDate"/>
+                    </td>
+                    <td>
+                        <span wicket:id="quality"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </wicket:panel>
 </body>
 </html>
