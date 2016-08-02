@@ -30,6 +30,8 @@ public class ContentPanel extends Panel {
     private static final long serialVersionUID = -3473068584065610593L;
     private List<Picture> pictures;
     private static final int ITEMS_PER_PAGE = 4;
+    private static final int MODAL_WIDTH = 1500;
+    private static final int MODAL_HEIGHT = 1000;
     private static final String TIMESTAMP_PATTERN = "yyyy-MM-dd HH:mm";
     private ModalWindow modalWindow;
     private ModalLargeImage modalLargeImage;
@@ -44,8 +46,8 @@ public class ContentPanel extends Panel {
         makePicturesListView();
 
         modalWindow = new ModalWindow("modalWindow");
-        modalWindow.setInitialWidth(1500);
-        modalWindow.setInitialHeight(1000);
+        modalWindow.setInitialWidth(MODAL_WIDTH);
+        modalWindow.setInitialHeight(MODAL_HEIGHT);
         add(modalWindow);
     }
 

@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-            <table class="table table-bordered table-striped table-responsive">
+            <table class="table table-bordered table-striped table-responsive table-with-vertical-align">
                 <tr>
                     <th class="text-center">
                         <wicket:message key="img_th"></wicket:message>
@@ -29,29 +29,34 @@
                     <th class="text-center">
                         <wicket:message key="quality_th"></wicket:message>
                     </th>
+                    <th class="text-center">
+                        <wicket:message key="action_th"></wicket:message>
+                    </th>
                 </tr>
                 <tr wicket:id="listview" class="text-center">
-                    <td>
+                    <td style="vertical-align: middle">
                         <a wicket:id="link"><img wicket:id="image" class="img-thumbnail"/></a>
+                    </td>
+                    <td style="vertical-align: middle">
+                        <span wicket:id="name"/>
+                    </td>
+                    <td style="vertical-align: middle">
+                        <span wicket:id="description"/>
+                    </td>
+                    <td style="vertical-align: middle">
+                        <span wicket:id="uploadDate"/>
+                    </td>
+                    <td style="vertical-align: middle">
+                        <span wicket:id="editDate"/>
+                    </td>
+                    <td style="vertical-align: middle">
+                        <span wicket:id="quality"/>
+                    </td>
+                    <td style="vertical-align: middle">
                         <div class="btn-group">
                             <button type="button" class="btn btn-primary"><wicket:message key="editButtonText"></wicket:message></button>
                             <button type="button" class="btn btn-primary btn-danger"><wicket:message key="deleteButtonText"></wicket:message></button>
                         </div>
-                    </td>
-                    <td>
-                        <span wicket:id="name"/>
-                    </td>
-                    <td>
-                        <span wicket:id="description"/>
-                    </td>
-                    <td>
-                        <span wicket:id="uploadDate"/>
-                    </td>
-                    <td>
-                        <span wicket:id="editDate"/>
-                    </td>
-                    <td>
-                        <span wicket:id="quality"/>
                     </td>
                 </tr>
             </table>
