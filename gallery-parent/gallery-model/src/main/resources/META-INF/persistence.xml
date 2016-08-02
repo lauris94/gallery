@@ -11,6 +11,7 @@
         <jta-data-source></jta-data-source>
         <properties>
             <property name="hbm2ddl.auto" value="update"/>
+            <property name="hibernate.enable_lazy_load_no_trans" value="true"/>
         </properties>
     </persistence-unit>
 </persistence>

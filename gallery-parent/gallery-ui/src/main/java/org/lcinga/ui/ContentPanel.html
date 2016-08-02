@@ -5,6 +5,7 @@
 </head>
 <body>
 <wicket:panel>
+    <div wicket:id="modalWindow"></div><br/>
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
@@ -32,7 +33,6 @@
                 <tr wicket:id="listview" class="text-center">
                     <td>
                         <a wicket:id="link"><img wicket:id="image" class="img-thumbnail"/></a>
-                        <div wicket:id="modalWindow"></div><br/>
                         <div class="btn-group">
                             <button type="button" class="btn btn-primary"><wicket:message key="editButtonText"></wicket:message></button>
                             <button type="button" class="btn btn-primary btn-danger"><wicket:message key="deleteButtonText"></wicket:message></button>
