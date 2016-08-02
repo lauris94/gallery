@@ -10,10 +10,27 @@
 
     <bean id="imageDaoBean" class="org.lcinga.dao.impl.PictureDaoImpl"/>
 
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <bean id="dataSources" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
-        <property name="url" value="jdbc:oracle:thin@//oracle.insoft.dev:1521"/>
+        <property name="url" value="jdbc:oracle:thin:@oracle.insoft.dev:1521:dev"/>
         <property name="username" value="mokymai"/>
         <property name="password" value="insoft_mokymai"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceXmlLocation" value="classpath:/META-INF/persistence.xml"/>
+        <property name="persistenceUnitName" value="imageGalleryPU"/>
+        <property name="dataSource" ref="dataSources"/>
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
+    </bean>
+
+    <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="showSql" value="true"/>
+        <property name="generateDdl" value="true"/>
+        <property name="databasePlatform" value="org.hibernate.dialect.Oracle10gDialect"/>
     </bean>
 </beans>
