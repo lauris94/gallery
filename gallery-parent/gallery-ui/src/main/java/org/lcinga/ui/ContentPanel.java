@@ -9,6 +9,9 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PageableListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.AbstractReadOnlyModel;
+import org.apache.wicket.protocol.http.ClientProperties;
+import org.apache.wicket.protocol.http.WebSession;
+import org.apache.wicket.protocol.http.request.WebClientInfo;
 import org.apache.wicket.request.resource.DynamicImageResource;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.lcinga.model.entities.Picture;
@@ -30,8 +33,8 @@ public class ContentPanel extends Panel {
     private static final long serialVersionUID = -3473068584065610593L;
     private List<Picture> pictures;
     private static final int ITEMS_PER_PAGE = 4;
-    private static final int MODAL_WIDTH = 1500;
-    private static final int MODAL_HEIGHT = 1000;
+    private static final Double MODAL_WIDTH_MULTIPLIER = 0.5;
+    private static final Double MODAL_HEIGHT_MULTIPLIER = 0.7;
     private static final String TIMESTAMP_PATTERN = "yyyy-MM-dd HH:mm";
     private ModalWindow modalWindow;
     private ModalLargeImage modalLargeImage;
@@ -44,11 +47,17 @@ public class ContentPanel extends Panel {
         super(id);
         pictures = iPictureService.getAllPictures();
         makePicturesListView();
-
         modalWindow = new ModalWindow("modalWindow");
-        modalWindow.setInitialWidth(MODAL_WIDTH);
-        modalWindow.setInitialHeight(MODAL_HEIGHT);
+        setModalWindowSizeByBrowserSize();
         add(modalWindow);
+    }
+
+    private void setModalWindowSizeByBrowserSize() {
+        getApplication().getRequestCycleSettings().setGatherExtendedBrowserInfo(true);
+        WebClientInfo w = WebSession.get().getClientInfo();
+        ClientProperties clientProperties = w.getProperties();
+        modalWindow.setInitialWidth((int) (clientProperties.getBrowserWidth() * MODAL_WIDTH_MULTIPLIER));
+        modalWindow.setInitialHeight((int) (clientProperties.getBrowserHeight() * MODAL_HEIGHT_MULTIPLIER));
     }
 
     private void makePicturesListView() {
@@ -89,15 +98,15 @@ public class ContentPanel extends Panel {
     private String makeQualityString(ImageQuality imageQuality) {
         switch (imageQuality) {
             case BAD:
-                return "Bad";
+                return getString("badQuality");
             case NORMAL:
-                return "Normal";
+                return getString("normalQuality");
             case GOOD:
-                return "Good";
+                return getString("goodQuality");
             case PERFECT:
-                return "Perfect";
+                return getString("perfectQuality");
             default:
-                return "Quality not found";
+                return getString("noQuality");
         }
     }
 

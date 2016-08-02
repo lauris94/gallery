@@ -12,7 +12,7 @@ public class TemplatePage extends WebPage {
     public TemplatePage() {
         add(new HeaderPanel("headerPanel"));
         add(new FooterPanel("footerPanel"));
-        add(new MenuPanel("menuPanel"));
+        //add(new MenuPanel("menuPanel"));
         add(new ContentPanel("contentPanel"));
     }
 }
