@@ -1,18 +1,20 @@
 <!DOCTYPE html>
-<html xmlns:wicket="http://www.w3.org/1999/xhtml">
+<html xmlns:wicket="http://wicket.apache.org" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <link type="text/css" rel="stylesheet" href="/bootstrap-3.3.7-dist/css/bootstrap.css"/>
 </head>
 <body>
 <wicket:panel>
     <h1>Content</h1>
 
-    <table>
+    <table class="table table-bordered">
         <tr wicket:id="listview">
             <td>
+                <span wicket:id="uploadDate"/>
+                <span wicket:id="editDate"/>
                 <span wicket:id="description"/>
-                <a wicket:id="link"><img wicket:id="image"/></a>
+                <span wicket:id="quality"/>
+                <a wicket:id="link"><img wicket:id="image" class="img-circle"/></a>
             </td>
         </tr>
     </table>
