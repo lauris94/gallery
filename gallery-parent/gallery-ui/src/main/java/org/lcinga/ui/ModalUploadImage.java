@@ -2,7 +2,6 @@ package org.lcinga.ui;
 
 import org.apache.wicket.markup.html.form.*;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.PropertyModel;
 import org.lcinga.model.enums.ImageQuality;
 
 import java.util.Arrays;
