@@ -4,22 +4,18 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.image.NonCachingImage;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PageableListView;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.protocol.http.ClientProperties;
 import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.protocol.http.request.WebClientInfo;
-import org.apache.wicket.request.resource.DynamicImageResource;
-import org.apache.wicket.resource.Properties;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.lcinga.model.entities.Picture;
 import org.lcinga.model.enums.ImageQuality;
-import org.lcinga.service.IPictureService;
-import org.lcinga.ui.Utils.DateUtils;
-import org.lcinga.ui.Utils.ImageUtils;
+import org.lcinga.service.PictureService;
+import org.lcinga.ui.utils.DateUtils;
+import org.lcinga.ui.utils.ImageUtils;
 
 import java.util.List;
 
@@ -27,8 +23,8 @@ import java.util.List;
  * Created by lcinga on 2016-08-01.
  */
 public class ContentPanel extends Panel {
-
     private static final long serialVersionUID = -3473068584065610593L;
+
     private List<Picture> pictures;
     private static final int ITEMS_PER_PAGE = 4;
     private static final Double MODAL_WIDTH_MULTIPLIER = 0.5;
@@ -36,14 +32,15 @@ public class ContentPanel extends Panel {
     private ModalWindow modalWindow;
     private ModalLargeImage modalLargeImage;
     private ModalUploadImage modalUploadImage;
+    private ModalEditImage modalEditImage;
     private Picture picture;
 
     @SpringBean
-    private IPictureService iPictureService;
+    private PictureService pictureService;
 
     public ContentPanel(String id) {
         super(id);
-        pictures = iPictureService.getAllPictures();
+        pictures = pictureService.getAllPictures();
         makePicturesListView();
         modalWindow = new ModalWindow("modalWindow");
         setModalWindowSizeByBrowserSize();
@@ -94,8 +91,19 @@ public class ContentPanel extends Panel {
                         modalWindow.show(ajaxRequestTarget);
                     }
                 };
+                AjaxLink editButton = new AjaxLink("editButton") {
+                    @Override
+                    public void onClick(AjaxRequestTarget ajaxRequestTarget) {
+                        modalEditImage = new ModalEditImage(ModalWindow.CONTENT_ID, item.getModelObject());
+                        modalWindow.setContent(modalEditImage);
+                        modalWindow.show(ajaxRequestTarget);
+                    }
+                };
+                add(link);
+                add(editButton);
                 link.add(ImageUtils.makeImage("image", item.getModelObject().getSmallImage()));
                 item.add(link);
+                item.add(editButton);
             }
         };
         add(listview);

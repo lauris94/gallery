@@ -2,6 +2,8 @@ package org.lcinga.dao.impl;
 
 import org.apache.log4j.Logger;
 import org.lcinga.dao.GenericDao;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,6 +28,7 @@ public abstract class GenericDaoImpl<T, PK extends Serializable> implements Gene
     }
 
     public T create(T t) {
+        System.out.println("genericdao transakcija: " + TransactionSynchronizationManager.getCurrentTransactionName());
         em.persist(t);
         logger.info("The entity was created");
         return t;
