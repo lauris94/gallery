@@ -5,6 +5,7 @@ import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.NonCachingImage;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PageableListView;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -38,6 +39,7 @@ public class ContentPanel extends Panel {
     private static final String TIMESTAMP_PATTERN = "yyyy-MM-dd HH:mm";
     private ModalWindow modalWindow;
     private ModalLargeImage modalLargeImage;
+    private ModalUploadImage modalUploadImage;
     private Picture picture;
 
     @SpringBean
@@ -50,6 +52,21 @@ public class ContentPanel extends Panel {
         modalWindow = new ModalWindow("modalWindow");
         setModalWindowSizeByBrowserSize();
         add(modalWindow);
+        uploadImageClick();
+    }
+
+    private void uploadImageClick() {
+        AjaxLink link = new AjaxLink("uploadImage") {
+            private static final long serialVersionUID = 5978113764969653661L;
+
+            @Override
+            public void onClick(AjaxRequestTarget ajaxRequestTarget) {
+                modalUploadImage = new ModalUploadImage(ModalWindow.CONTENT_ID);
+                modalWindow.setContent(modalUploadImage);
+                modalWindow.show(ajaxRequestTarget);
+            }
+        };
+        add(link);
     }
 
     private void setModalWindowSizeByBrowserSize() {

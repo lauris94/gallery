@@ -10,7 +10,7 @@ import org.lcinga.model.enums.ImageQuality;
 @StaticMetamodel(Picture.class)
 public abstract class Picture_ {
 
-	public static volatile SingularAttribute<Picture, PictureSource> imageSource;
+	public static volatile SingularAttribute<Picture, PictureSource> pictureSource;
 	public static volatile SingularAttribute<Picture, byte[]> smallImage;
 	public static volatile SingularAttribute<Picture, Date> uploadDate;
 	public static volatile SingularAttribute<Picture, String> description;
@@ -18,6 +18,7 @@ public abstract class Picture_ {
 	public static volatile SingularAttribute<Picture, Date> editDate;
 	public static volatile SingularAttribute<Picture, Long> version;
 	public static volatile SingularAttribute<Picture, ImageQuality> quality;
+	public static volatile SingularAttribute<Picture, String> name;
 
 }
 
