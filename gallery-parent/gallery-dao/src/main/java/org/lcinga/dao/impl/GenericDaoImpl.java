@@ -28,7 +28,6 @@ public abstract class GenericDaoImpl<T, PK extends Serializable> implements Gene
     }
 
     public T create(T t) {
-        System.out.println("genericdao transakcija: " + TransactionSynchronizationManager.getCurrentTransactionName());
         em.persist(t);
         logger.info("The entity was created");
         return t;
