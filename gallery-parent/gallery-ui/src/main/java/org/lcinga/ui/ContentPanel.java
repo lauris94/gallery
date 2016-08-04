@@ -7,15 +7,18 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PageableListView;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.protocol.http.ClientProperties;
 import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.protocol.http.request.WebClientInfo;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.lcinga.model.entities.Picture;
+import org.lcinga.model.entities.PictureSource;
 import org.lcinga.model.enums.ImageQuality;
 import org.lcinga.service.PictureService;
 import org.lcinga.ui.utils.DateUtils;
 import org.lcinga.ui.utils.ImageUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,7 +35,7 @@ public class ContentPanel extends Panel {
     private ModalWindow modalWindow;
     private ModalLargeImage modalLargeImage;
     private ModalUploadImage modalUploadImage;
-    private ModalEditImage modalEditImage;
+    private ModalUploadImage modalEditImage;
     private Picture picture;
 
     @SpringBean
@@ -54,7 +57,7 @@ public class ContentPanel extends Panel {
 
             @Override
             public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-                modalUploadImage = new ModalUploadImage(ModalWindow.CONTENT_ID);
+                modalUploadImage = new ModalUploadImage(ModalWindow.CONTENT_ID, new CompoundPropertyModel<>(new Picture()));
                 modalWindow.setContent(modalUploadImage);
                 modalWindow.show(ajaxRequestTarget);
             }
@@ -94,7 +97,7 @@ public class ContentPanel extends Panel {
                 AjaxLink editButton = new AjaxLink("editButton") {
                     @Override
                     public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-                        modalEditImage = new ModalEditImage(ModalWindow.CONTENT_ID, item.getModelObject());
+                        modalEditImage = new ModalUploadImage(ModalWindow.CONTENT_ID, new CompoundPropertyModel<>(item.getModelObject()));
                         modalWindow.setContent(modalEditImage);
                         modalWindow.show(ajaxRequestTarget);
                     }

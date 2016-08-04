@@ -16,6 +16,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.List;
 
 @Transactional
@@ -32,6 +33,7 @@ public class PictureServiceImpl implements PictureService {
     }
 
     public void createPicture(Picture picture) {
+        picture.setEditDate(new Date());
         pictureDao.create(picture);
     }
 
@@ -48,17 +50,27 @@ public class PictureServiceImpl implements PictureService {
             } catch (IOException e) {
                 logger.error("Thumbnail was not created.");
             }
-            createPicture(picture);
+            if (picture.getId() != null && picture.getVersion() != null)
+                updatePicture(picture);
+            else {
+                createPicture(picture);
+            }
         } else {
             logger.error("Picture was not created.");
         }
     }
 
-    public Picture getPicture(long id){
+    @Override
+    public void updatePicture(Picture picture) {
+        picture.setEditDate(new Date());
+        pictureDao.update(picture);
+    }
+
+    public Picture getPicture(long id) {
         return pictureDao.find(id);
     }
 
-    public List<Picture> getAllPictures(){
+    public List<Picture> getAllPictures() {
         return pictureDao.getAll();
     }
 

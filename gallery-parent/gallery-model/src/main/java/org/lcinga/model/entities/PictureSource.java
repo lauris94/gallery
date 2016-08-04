@@ -24,20 +24,20 @@ public class PictureSource implements Serializable{
     @Id
     @GeneratedValue(generator = "idSeq", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "idSeq", sequenceName = "LAURIS_IMAGESOURCE_ID_SEQ", allocationSize = 1)
-    private long id;
+    private Long id;
 
     @Lob
     @Column(name="LARGE_IMAGE", nullable=false)
     private byte[] largeImage;
 
     @Version
-    private long version;
+    private Long version;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -49,11 +49,11 @@ public class PictureSource implements Serializable{
         this.largeImage = largeImage;
     }
 
-    public long getVersion() {
+    public Long getVersion() {
         return version;
     }
 
-    public void setVersion(long version) {
+    public void setVersion(Long version) {
         this.version = version;
     }
 }

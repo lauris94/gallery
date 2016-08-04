@@ -7,19 +7,19 @@
     <form wicket:id="pictureDetailsInputForm">
         <div class="form-group">
             <label for="usr"><wicket:message key="nameLabel"/></label>
-            <input type="text" class="form-control" id="usr" wicket:id="pictureNameInput">
+            <input type="text" class="form-control" id="usr" wicket:id="name">
         </div>
         <div class="form-group">
             <label for="description"><wicket:message key="descriptionLabel"/></label>
-            <textarea class="form-control" rows="5" id="description" wicket:id="descriptionInput"></textarea>
+            <textarea class="form-control" rows="5" id="description" wicket:id="description"></textarea>
         </div>
         <div class="dropdown">
             <label for="dropdown"><wicket:message key="qualityLabel"/></label>
-            <select wicket:id="imageQualityDD" class="btn btn-primary dropdown-toggle form-control" id="dropdown"></select>
+            <select wicket:id="quality" class="btn btn-primary dropdown-toggle form-control" id="dropdown"></select>
         </div>
         <div>
             <label for="file"><wicket:message key="uploadLabel"/></label>
-            <input wicket:id="fileInput" type="file" id="file" class="form-control"/>
+            <input wicket:id="largeImage" type="file" id="file" class="form-control"/>
         </div>
         <div>
             <button type="submit" class="btn btn-success" wicket:id="submitPicture">Submit</button>

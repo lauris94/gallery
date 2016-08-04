@@ -30,15 +30,15 @@ public class Picture implements Serializable {
     @Id
     @GeneratedValue(generator = "idSeq", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "idSeq", sequenceName = "LAURIS_ID_SEQ", allocationSize = 1)
-    private long id;
+    private Long id;
 
     @Column(name = "UPLOAD_DATE", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date uploadDate;
+    private Date uploadDate = new Date();
 
     @Column(name = "EDIT_DATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date editDate;
+    private Date editDate = new Date();
 
     private ImageQuality quality;
 
@@ -56,11 +56,11 @@ public class Picture implements Serializable {
     @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private PictureSource pictureSource;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -115,11 +115,11 @@ public class Picture implements Serializable {
         this.smallImage = smallImage;
     }
 
-    public long getVersion() {
+    public Long getVersion() {
         return version;
     }
 
-    public void setVersion(long version) {
+    public void setVersion(Long version) {
         this.version = version;
     }
 
