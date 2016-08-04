@@ -32,7 +32,7 @@ public class Picture implements Serializable {
     @SequenceGenerator(name = "idSeq", sequenceName = "LAURIS_ID_SEQ", allocationSize = 1)
     private Long id;
 
-    @Column(name = "UPLOAD_DATE", updatable = false)
+    @Column(name = "UPLOAD_DATE", updatable = false, nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date uploadDate;
 

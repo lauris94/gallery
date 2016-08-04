@@ -78,10 +78,10 @@ public class ContentPanel extends Panel {
             protected void populateItem(final ListItem<Picture> item) {
                 picture = item.getModelObject();
                 item.add(new Label("uploadDate", DateUtils.convertDateToString(picture.getUploadDate())));
-                item.add(new Label("editDate", DateUtils.convertDateToString(picture.getEditDate())));
-                item.add(new Label("description", picture.getDescription()));
-                item.add(new Label("name", picture.getName()));
-                item.add(new Label("quality", makeQualityString(picture.getQuality())));
+                item.add(new Label("editDate", picture.getEditDate() != null ? DateUtils.convertDateToString(picture.getEditDate()): "-"));
+                item.add(new Label("description", picture.getDescription() != null ? picture.getDescription() : "-"));
+                item.add(new Label("name", picture.getName() != null ? picture.getName() : "-"));
+                item.add(new Label("quality", picture.getQuality() != null ? makeQualityString(picture.getQuality()) : "-"));
                 AjaxLink link = new AjaxLink("link") {
                     private static final long serialVersionUID = 5978113764969653661L;
 

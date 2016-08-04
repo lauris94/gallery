@@ -33,7 +33,7 @@ public class PictureServiceImpl implements PictureService {
     }
 
     public void createPicture(Picture picture) {
-        picture.setEditDate(new Date());
+        picture.setUploadDate(new Date());
         pictureDao.create(picture);
     }
 
