@@ -1,7 +1,6 @@
 package org.lcinga.dao;
 
 import org.lcinga.model.entities.Picture;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

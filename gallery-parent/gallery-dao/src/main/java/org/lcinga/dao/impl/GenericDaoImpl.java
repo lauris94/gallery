@@ -2,8 +2,6 @@ package org.lcinga.dao.impl;
 
 import org.apache.log4j.Logger;
 import org.lcinga.dao.GenericDao;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

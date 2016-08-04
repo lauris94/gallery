@@ -13,12 +13,10 @@ import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.protocol.http.request.WebClientInfo;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.lcinga.model.entities.Picture;
-import org.lcinga.model.entities.PictureSource;
 import org.lcinga.model.enums.ImageQuality;
 import org.lcinga.service.PictureService;
 import org.lcinga.ui.utils.DateUtils;
 import org.lcinga.ui.utils.ImageUtils;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
