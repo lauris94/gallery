@@ -1,5 +1,6 @@
 package org.lcinga.ui;
 
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
@@ -34,7 +35,6 @@ public class ContentPanel extends Panel {
     private ModalLargeImage modalLargeImage;
     private ModalUploadImage modalUploadImage;
     private ModalUploadImage modalEditImage;
-    private Picture picture;
 
     @SpringBean
     private PictureService pictureService;
@@ -72,16 +72,17 @@ public class ContentPanel extends Panel {
     }
 
     private void makePicturesListView() {
-        final PageableListView<Picture> listview = new PageableListView<Picture>("listview", pictures, ITEMS_PER_PAGE) {
+
+        final PageableListView<Picture> listView = new PageableListView<Picture>("listview", pictures, ITEMS_PER_PAGE) {
             private static final long serialVersionUID = 3263873336191237351L;
 
             protected void populateItem(final ListItem<Picture> item) {
-                picture = item.getModelObject();
+                Picture picture = item.getModelObject();
                 item.add(new Label("uploadDate", DateUtils.convertDateToString(picture.getUploadDate())));
-                item.add(new Label("editDate", picture.getEditDate() != null ? DateUtils.convertDateToString(picture.getEditDate()): "-"));
-                item.add(new Label("description", picture.getDescription() != null ? picture.getDescription() : "-"));
-                item.add(new Label("name", picture.getName() != null ? picture.getName() : "-"));
-                item.add(new Label("quality", picture.getQuality() != null ? makeQualityString(picture.getQuality()) : "-"));
+                item.add(new Label("editDate", ObjectUtils.defaultIfNull(DateUtils.convertDateToString(picture.getEditDate()), "-")));
+                item.add(new Label("description", ObjectUtils.defaultIfNull(picture.getDescription(), "-")));
+                item.add(new Label("name", ObjectUtils.defaultIfNull(picture.getName(), "-")));
+                item.add(new Label("quality", ObjectUtils.defaultIfNull(makeQualityString(picture.getQuality()), "-")));
                 AjaxLink link = new AjaxLink("link") {
                     private static final long serialVersionUID = 5978113764969653661L;
 
@@ -107,10 +108,13 @@ public class ContentPanel extends Panel {
                 item.add(editButton);
             }
         };
-        add(listview);
+        add(listView);
     }
 
     private String makeQualityString(ImageQuality imageQuality) {
+        if (imageQuality == null) {
+            return null;
+        }
         switch (imageQuality) {
             case BAD:
                 return getString("badQuality");

@@ -16,6 +16,9 @@ public class DateUtils {
     private DateUtils(){}
 
     public static String convertDateToString(Date input) {
+        if (input == null){
+            return null;
+        }
         Instant instant = Instant.ofEpochMilli(input.getTime());
         LocalDateTime res = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(TIMESTAMP_PATTERN);
