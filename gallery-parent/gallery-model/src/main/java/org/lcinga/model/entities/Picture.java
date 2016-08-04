@@ -34,11 +34,11 @@ public class Picture implements Serializable {
 
     @Column(name = "UPLOAD_DATE", updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date uploadDate = new Date();
+    private Date uploadDate;
 
     @Column(name = "EDIT_DATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date editDate = new Date();
+    private Date editDate;
 
     private ImageQuality quality;
 
