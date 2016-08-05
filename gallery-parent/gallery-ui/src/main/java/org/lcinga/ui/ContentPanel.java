@@ -9,9 +9,6 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PageableListView;
-import org.apache.wicket.markup.html.navigation.paging.IPageable;
-import org.apache.wicket.markup.html.navigation.paging.PagingNavigation;
-import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.protocol.http.ClientProperties;
@@ -122,7 +119,7 @@ public class ContentPanel extends Panel {
             }
         };
 
-        AjaxPagingNavigator pager = new AjaxPagingNavigator("pager", listView) {
+        CustomPagingNavigator pager = new CustomPagingNavigator("pager", listView) {
             @Override
             protected void onAjaxEvent(AjaxRequestTarget target) {
                 target.add(webMarkupContainer);
