@@ -3,10 +3,15 @@ package org.lcinga.ui;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.ajax.markup.html.navigation.paging.AjaxPagingNavigator;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PageableListView;
+import org.apache.wicket.markup.html.navigation.paging.IPageable;
+import org.apache.wicket.markup.html.navigation.paging.PagingNavigation;
+import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.protocol.http.ClientProperties;
@@ -29,24 +34,29 @@ public class ContentPanel extends Panel {
 
     private List<Picture> pictures;
     private static final int ITEMS_PER_PAGE = 4;
-    private static final Double MODAL_WIDTH_MULTIPLIER = 0.5;
-    private static final Double MODAL_HEIGHT_MULTIPLIER = 0.7;
+    private static final Double MODAL_WIDTH_MULTIPLIER_IMAGE = 0.6;
+    private static final Double MODAL_HEIGHT_MULTIPLIER_IMAGE = 0.8;
+    private static final Double MODAL_WIDTH_MULTIPLIER = 0.3;
+    private static final Double MODAL_HEIGHT_MULTIPLIER = 0.5;
     private ModalWindow modalWindow;
     private ModalLargeImage modalLargeImage;
     private ModalUploadImage modalUploadImage;
     private ModalUploadImage modalEditImage;
+    private WebMarkupContainer webMarkupContainer;
 
     @SpringBean
     private PictureService pictureService;
 
     public ContentPanel(String id) {
         super(id);
+        webMarkupContainer = new WebMarkupContainer("container");
+        webMarkupContainer.setOutputMarkupId(true);
         pictures = pictureService.getAllPictures();
         makePicturesListView();
         modalWindow = new ModalWindow("modalWindow");
-        setModalWindowSizeByBrowserSize();
         add(modalWindow);
         uploadImageClick();
+        add(webMarkupContainer);
     }
 
     private void uploadImageClick() {
@@ -55,20 +65,21 @@ public class ContentPanel extends Panel {
 
             @Override
             public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-                modalUploadImage = new ModalUploadImage(ModalWindow.CONTENT_ID, new CompoundPropertyModel<>(new Picture()));
+                setModalWindowSize(MODAL_WIDTH_MULTIPLIER, MODAL_HEIGHT_MULTIPLIER);
+                modalUploadImage = new ModalUploadImage(ModalWindow.CONTENT_ID, new CompoundPropertyModel<>(new Picture()), webMarkupContainer, modalWindow);
                 modalWindow.setContent(modalUploadImage);
                 modalWindow.show(ajaxRequestTarget);
             }
         };
-        add(link);
+        webMarkupContainer.add(link);
     }
 
-    private void setModalWindowSizeByBrowserSize() {
+    private void setModalWindowSize(double width, double height) {
         getApplication().getRequestCycleSettings().setGatherExtendedBrowserInfo(true);
         WebClientInfo w = WebSession.get().getClientInfo();
         ClientProperties clientProperties = w.getProperties();
-        modalWindow.setInitialWidth((int) (clientProperties.getBrowserWidth() * MODAL_WIDTH_MULTIPLIER));
-        modalWindow.setInitialHeight((int) (clientProperties.getBrowserHeight() * MODAL_HEIGHT_MULTIPLIER));
+        modalWindow.setInitialWidth((int) (clientProperties.getBrowserWidth() * width));
+        modalWindow.setInitialHeight((int) (clientProperties.getBrowserHeight() * height));
     }
 
     private void makePicturesListView() {
@@ -88,6 +99,7 @@ public class ContentPanel extends Panel {
 
                     @Override
                     public void onClick(AjaxRequestTarget ajaxRequestTarget) {
+                        setModalWindowSize(MODAL_WIDTH_MULTIPLIER_IMAGE, MODAL_HEIGHT_MULTIPLIER_IMAGE);
                         modalLargeImage = new ModalLargeImage(modalWindow.getContentId(), item.getModelObject());
                         modalWindow.setContent(modalLargeImage);
                         modalWindow.show(ajaxRequestTarget);
@@ -96,7 +108,8 @@ public class ContentPanel extends Panel {
                 AjaxLink editButton = new AjaxLink("editButton") {
                     @Override
                     public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-                        modalEditImage = new ModalUploadImage(ModalWindow.CONTENT_ID, new CompoundPropertyModel<>(item.getModelObject()));
+                        setModalWindowSize(MODAL_WIDTH_MULTIPLIER, MODAL_HEIGHT_MULTIPLIER);
+                        modalEditImage = new ModalUploadImage(ModalWindow.CONTENT_ID, new CompoundPropertyModel<>(item.getModelObject()), webMarkupContainer, modalWindow);
                         modalWindow.setContent(modalEditImage);
                         modalWindow.show(ajaxRequestTarget);
                     }
@@ -108,7 +121,17 @@ public class ContentPanel extends Panel {
                 item.add(editButton);
             }
         };
-        add(listView);
+
+        AjaxPagingNavigator pager = new AjaxPagingNavigator("pager", listView) {
+            @Override
+            protected void onAjaxEvent(AjaxRequestTarget target) {
+                target.add(webMarkupContainer);
+            }
+        };
+
+        webMarkupContainer.add(pager);
+        listView.setOutputMarkupId(true);
+        webMarkupContainer.add(listView);
     }
 
     private String makeQualityString(ImageQuality imageQuality) {

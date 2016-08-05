@@ -5,10 +5,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/META-INF/application-context-test-dao.xml")
 @Transactional

@@ -1,10 +1,11 @@
 package org.lcinga.model.entities;
 
-import java.util.Date;
+import org.lcinga.model.enums.ImageQuality;
+
 import javax.annotation.Generated;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
-import org.lcinga.model.enums.ImageQuality;
+import java.util.Date;
 
 @Generated(value = "org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor")
 @StaticMetamodel(Picture.class)

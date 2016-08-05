@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html xmlns:wicket="http://wicket.apache.org" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
 </head>
 <body>
 <wicket:panel>
 
-    <div wicket:id="modalWindow"></div><br/>
+    <div wicket:id="modalWindow"></div>
+    <br/>
 
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-8">
-            <table class="table table-bordered table-striped table-responsive table-with-vertical-align">
+        <div class="col-md-8" wicket:id="container">
+            <table class="table table-bordered table-striped table-responsive table-with-vertical-align"
+                   style="margin-top: 8px">
                 <tr>
                     <th class="text-center">
                         <wicket:message key="img_th"></wicket:message>
@@ -35,7 +37,7 @@
                         <wicket:message key="action_th"></wicket:message>
                     </th>
                 </tr>
-                <tr wicket:id="listview" class="text-center">
+                <tr wicket:id="listview" class="text-center" style="height: 150px">
                     <td style="vertical-align: middle">
                         <a wicket:id="link"><img wicket:id="image" class="img-thumbnail"/></a>
                     </td>
@@ -55,15 +57,18 @@
                         <span wicket:id="quality"/>
                     </td>
                     <td style="vertical-align: middle">
-                        <div class="btn-group">
-                            <button type="button" wicket:id="editButton" class="btn btn-primary"><wicket:message key="editButtonText"></wicket:message></button>
-                            <button type="button" class="btn btn-primary btn-danger"><wicket:message key="deleteButtonText"></wicket:message></button>
-                        </div>
+                        <button type="button" wicket:id="editButton" class="btn btn-primary glyphicon glyphicon-edit"/>
+                        <button type="button" class="btn btn-primary btn-danger glyphicon glyphicon-remove"/>
                     </td>
                 </tr>
             </table>
+
+            <div wicket:id="pager" class="text-center" style="margin-bottom: 20px"></div>
+
             <div class="text-center">
-                    <button wicket:id="uploadImage" type="button" class="btn btn-lg btn-success"><wicket:message key="uplImageButtonText"></wicket:message></button>
+                <button wicket:id="uploadImage" type="button" class="btn btn-lg btn-success">
+                    <wicket:message key="uplImageButtonText"></wicket:message>
+                </button>
             </div>
         </div>
     </div>
