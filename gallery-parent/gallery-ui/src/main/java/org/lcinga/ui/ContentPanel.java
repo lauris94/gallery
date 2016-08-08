@@ -33,7 +33,7 @@ public class ContentPanel extends Panel {
     private static final Double MODAL_WIDTH_MULTIPLIER_IMAGE = 0.6;
     private static final Double MODAL_HEIGHT_MULTIPLIER_IMAGE = 0.8;
     private static final Double MODAL_WIDTH_MULTIPLIER = 0.3;
-    private static final Double MODAL_HEIGHT_MULTIPLIER = 0.5;
+    private static final Double MODAL_HEIGHT_MULTIPLIER = 0.8;
     private ModalWindow modalWindow;
     private ModalLargeImage modalLargeImage;
     private ModalUploadImage modalUploadImage;

@@ -34,6 +34,22 @@ public class Tag implements Serializable{
         return text;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Tag tag = (Tag) o;
+
+        return text != null ? text.equals(tag.text) : tag.text == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return text != null ? text.hashCode() : 0;
+    }
+
     public void setText(String text) {
         this.text = text;
     }

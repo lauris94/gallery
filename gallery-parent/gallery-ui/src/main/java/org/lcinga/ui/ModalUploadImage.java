@@ -5,11 +5,6 @@ import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Check;
-import org.apache.wicket.markup.html.form.CheckBox;
-import org.apache.wicket.markup.html.form.CheckBoxMultipleChoice;
-import org.apache.wicket.markup.html.form.CheckGroup;
-import org.apache.wicket.markup.html.form.CheckGroupSelector;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.EnumChoiceRenderer;
 import org.apache.wicket.markup.html.form.Form;
@@ -85,30 +80,47 @@ public abstract class ModalUploadImage extends Panel {
 
         FeedbackPanel feedbackPanel = new FeedbackPanel("feedback");
         feedbackPanel.setOutputMarkupId(true);
-
         form.add(feedbackPanel);
 
         TextField<String> name = new TextField<>("name");
         name.add(new StringValidator(STRING_MIN_LENGTH, STRING_MAX_LENGTH));
         name.setRequired(true);
-
         form.add(name);
+
         form.add(new TextArea<>("description").add(new StringValidator(STRING_MIN_LENGTH, STRING_MAX_LENGTH_DESCRIPTION)));
         form.add(new DropDownChoice<>("quality", Arrays.asList(ImageQuality.values()), new EnumChoiceRenderer<>()));
 
         form.setMultiPart(true);
 
-        List<Tag> tagsList = tagService.getAllTags();
+        List<Tag> allTags = tagService.getAllTags();
+        Picture picture = (Picture) getDefaultModelObject();
+        ListView<Tag> addedTagsListview = new ListView<Tag>("tagsListView", picture.getTags()) {
+            private static final long serialVersionUID = 4597174609935228612L;
 
+            @Override
+            protected void populateItem(ListItem<Tag> listItem) {
+                listItem.add(new Label("text", listItem.getModelObject().getText()));
+            }
+        };
 
+        form.add(addedTagsListview);
 
+        if (picture.getId() != null){
+            allTags = getAvailableTags(picture, allTags);
+        }
 
+        List<String> tagNameList = new ArrayList<>();
+        allTags.forEach(tag -> tagNameList.add(tag.getText()));
 
+        DropDownChoice<String> availableTagsDropDown = new DropDownChoice<>("availableTags", tagNameList);
+        form.add(availableTagsDropDown);
 
         fileUploadField = new FileUploadField("largeImage", new Model<>());
         form.add(fileUploadField);
 
         AjaxSubmitLink submitButton = new AjaxSubmitLink("submitPicture", form) {
+            private static final long serialVersionUID = 3342574116572820400L;
+
             @Override
             protected void onAfterSubmit(AjaxRequestTarget target, Form<?> form) {
                 super.onAfterSubmit(target, form);
@@ -135,6 +147,12 @@ public abstract class ModalUploadImage extends Panel {
         form.add(cancelButton);
         form.add(submitButton);
         add(form);
+    }
+
+    private List<Tag> getAvailableTags(Picture picture, List<Tag> allTags) {
+        List<Tag> tags = picture.getTags();
+        allTags.removeAll(tags);
+        return allTags;
     }
 
     public abstract void onUpload(AjaxRequestTarget target);
