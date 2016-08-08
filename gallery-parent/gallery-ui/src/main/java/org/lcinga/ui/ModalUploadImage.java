@@ -2,10 +2,8 @@ package org.lcinga.ui;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
-import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.*;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
@@ -25,12 +23,12 @@ import java.util.Arrays;
 /**
  * Created by lcinga on 2016-08-03.
  */
-public class ModalUploadImage extends Panel {
+public abstract class ModalUploadImage extends Panel {
     private static final long serialVersionUID = -3016593005565028329L;
 
     private static final int STRING_MIN_LENGTH = 5;
     private static final int STRING_MAX_LENGTH = 20;
-    private static final int STRING_MAX_LENGTH_DESCRIPTION = 500;
+    private static final int STRING_MAX_LENGTH_DESCRIPTION = 150;
     private static final int IMAGE_BYTES_MIN_LENGTH = 10000;
     private static final int THUMBNAIL_WIDTH = 150;
     private static final int THUMBNAIL_HEIGHT = 150;
@@ -40,7 +38,7 @@ public class ModalUploadImage extends Panel {
     @SpringBean
     private PictureService pictureService;
 
-    public ModalUploadImage(String id, IModel compoundPropertyModel, WebMarkupContainer webMarkupContainer, ModalWindow modalWindow) {
+    public ModalUploadImage(String id, IModel compoundPropertyModel, ModalWindow modalWindow) {
         super(id, compoundPropertyModel);
         Form<Picture> form = new Form<Picture>("pictureDetailsInputForm", compoundPropertyModel) {
             private static final long serialVersionUID = 5481335960355058032L;
@@ -86,7 +84,8 @@ public class ModalUploadImage extends Panel {
                 target.add(feedbackPanel);
                 if (!form.hasErrorMessage()) {
                     modalWindow.close(target);
-                    setResponsePage(TemplatePage.class);
+                    onUpload(target);
+                    //setResponsePage(TemplatePage.class);
                 }
             }
             @Override
@@ -107,4 +106,6 @@ public class ModalUploadImage extends Panel {
         form.add(submitButton);
         add(form);
     }
+
+    public abstract void onUpload(AjaxRequestTarget target);
 }

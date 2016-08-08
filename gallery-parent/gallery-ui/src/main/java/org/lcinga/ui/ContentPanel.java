@@ -3,7 +3,6 @@ package org.lcinga.ui;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
-import org.apache.wicket.ajax.markup.html.navigation.paging.AjaxPagingNavigator;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -11,6 +10,7 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.PageableListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.protocol.http.ClientProperties;
 import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.protocol.http.request.WebClientInfo;
@@ -29,7 +29,6 @@ import java.util.List;
 public class ContentPanel extends Panel {
     private static final long serialVersionUID = -3473068584065610593L;
 
-    private List<Picture> pictures;
     private static final int ITEMS_PER_PAGE = 4;
     private static final Double MODAL_WIDTH_MULTIPLIER_IMAGE = 0.6;
     private static final Double MODAL_HEIGHT_MULTIPLIER_IMAGE = 0.8;
@@ -40,6 +39,7 @@ public class ContentPanel extends Panel {
     private ModalUploadImage modalUploadImage;
     private ModalUploadImage modalEditImage;
     private WebMarkupContainer webMarkupContainer;
+    private LoadableDetachableModel imageListModel;
 
     @SpringBean
     private PictureService pictureService;
@@ -48,7 +48,16 @@ public class ContentPanel extends Panel {
         super(id);
         webMarkupContainer = new WebMarkupContainer("container");
         webMarkupContainer.setOutputMarkupId(true);
-        pictures = pictureService.getAllPictures();
+
+        imageListModel = new LoadableDetachableModel() {
+            private static final long serialVersionUID = -873256375646275185L;
+
+            @Override
+            protected Object load() {
+                return pictureService.getAllPictures();
+            }
+        };
+
         makePicturesListView();
         modalWindow = new ModalWindow("modalWindow");
         add(modalWindow);
@@ -63,7 +72,15 @@ public class ContentPanel extends Panel {
             @Override
             public void onClick(AjaxRequestTarget ajaxRequestTarget) {
                 setModalWindowSize(MODAL_WIDTH_MULTIPLIER, MODAL_HEIGHT_MULTIPLIER);
-                modalUploadImage = new ModalUploadImage(ModalWindow.CONTENT_ID, new CompoundPropertyModel<>(new Picture()), webMarkupContainer, modalWindow);
+                modalUploadImage = new ModalUploadImage(ModalWindow.CONTENT_ID, new CompoundPropertyModel<>(new Picture()), modalWindow) {
+                    private static final long serialVersionUID = 1388666203503740698L;
+
+                    @Override
+                    public void onUpload(AjaxRequestTarget target) {
+                        imageListModel.detach();
+                        target.add(webMarkupContainer);
+                    }
+                };
                 modalWindow.setContent(modalUploadImage);
                 modalWindow.show(ajaxRequestTarget);
             }
@@ -81,10 +98,11 @@ public class ContentPanel extends Panel {
 
     private void makePicturesListView() {
 
-        final PageableListView<Picture> listView = new PageableListView<Picture>("listview", pictures, ITEMS_PER_PAGE) {
+        final PageableListView<Picture> listView = new PageableListView<Picture>("listview", imageListModel, ITEMS_PER_PAGE) {
             private static final long serialVersionUID = 3263873336191237351L;
 
             protected void populateItem(final ListItem<Picture> item) {
+
                 Picture picture = item.getModelObject();
                 item.add(new Label("uploadDate", DateUtils.convertDateToString(picture.getUploadDate())));
                 item.add(new Label("editDate", ObjectUtils.defaultIfNull(DateUtils.convertDateToString(picture.getEditDate()), "-")));
@@ -103,10 +121,20 @@ public class ContentPanel extends Panel {
                     }
                 };
                 AjaxLink editButton = new AjaxLink("editButton") {
+                    private static final long serialVersionUID = -207801702236802329L;
+
                     @Override
                     public void onClick(AjaxRequestTarget ajaxRequestTarget) {
                         setModalWindowSize(MODAL_WIDTH_MULTIPLIER, MODAL_HEIGHT_MULTIPLIER);
-                        modalEditImage = new ModalUploadImage(ModalWindow.CONTENT_ID, new CompoundPropertyModel<>(item.getModelObject()), webMarkupContainer, modalWindow);
+                        modalEditImage = new ModalUploadImage(ModalWindow.CONTENT_ID, new CompoundPropertyModel<>(item.getModelObject()), modalWindow) {
+                            private static final long serialVersionUID = -2950275701529876148L;
+
+                            @Override
+                            public void onUpload(AjaxRequestTarget target) {
+                                imageListModel.detach();
+                                target.add(webMarkupContainer);
+                            }
+                        };
                         modalWindow.setContent(modalEditImage);
                         modalWindow.show(ajaxRequestTarget);
                     }
@@ -120,14 +148,16 @@ public class ContentPanel extends Panel {
         };
 
         CustomPagingNavigator pager = new CustomPagingNavigator("pager", listView) {
+            private static final long serialVersionUID = -8365301612181923459L;
+
             @Override
             protected void onAjaxEvent(AjaxRequestTarget target) {
                 target.add(webMarkupContainer);
             }
         };
 
-        webMarkupContainer.add(pager);
         listView.setOutputMarkupId(true);
+        webMarkupContainer.add(pager);
         webMarkupContainer.add(listView);
     }
 
