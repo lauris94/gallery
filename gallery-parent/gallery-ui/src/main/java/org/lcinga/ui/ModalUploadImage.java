@@ -4,25 +4,38 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Check;
+import org.apache.wicket.markup.html.form.CheckBox;
+import org.apache.wicket.markup.html.form.CheckBoxMultipleChoice;
+import org.apache.wicket.markup.html.form.CheckGroup;
+import org.apache.wicket.markup.html.form.CheckGroupSelector;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.EnumChoiceRenderer;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.StringValidator;
 import org.lcinga.model.entities.Picture;
 import org.lcinga.model.entities.PictureSource;
+import org.lcinga.model.entities.Tag;
 import org.lcinga.model.enums.ImageQuality;
 import org.lcinga.service.PictureService;
+import org.lcinga.service.TagService;
 import org.lcinga.ui.utils.ImageUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by lcinga on 2016-08-03.
@@ -41,6 +54,9 @@ public abstract class ModalUploadImage extends Panel {
 
     @SpringBean
     private PictureService pictureService;
+
+    @SpringBean
+    private TagService tagService;
 
     public ModalUploadImage(String id, IModel compoundPropertyModel, ModalWindow modalWindow) {
         super(id, compoundPropertyModel);
@@ -72,11 +88,22 @@ public abstract class ModalUploadImage extends Panel {
 
         form.add(feedbackPanel);
 
-        form.add(new TextField<>("name").add(new StringValidator(STRING_MIN_LENGTH, STRING_MAX_LENGTH)));
+        TextField<String> name = new TextField<>("name");
+        name.add(new StringValidator(STRING_MIN_LENGTH, STRING_MAX_LENGTH));
+        name.setRequired(true);
+
+        form.add(name);
         form.add(new TextArea<>("description").add(new StringValidator(STRING_MIN_LENGTH, STRING_MAX_LENGTH_DESCRIPTION)));
         form.add(new DropDownChoice<>("quality", Arrays.asList(ImageQuality.values()), new EnumChoiceRenderer<>()));
 
         form.setMultiPart(true);
+
+        List<Tag> tagsList = tagService.getAllTags();
+
+
+
+
+
 
         fileUploadField = new FileUploadField("largeImage", new Model<>());
         form.add(fileUploadField);

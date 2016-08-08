@@ -9,7 +9,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -18,6 +22,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by lcinga on 2016-07-25.
@@ -46,15 +51,21 @@ public class Picture implements Serializable {
 
     private String name;
 
-    @Version
-    private long version;
-
     @Lob
     @Column(name = "SMALL_IMAGE")
     private byte[] smallImage;
 
+    @Version
+    private long version;
+
     @OneToOne(optional = false, fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private PictureSource pictureSource;
+
+    @ManyToMany()
+    @JoinTable(name = "LAURIS_PICTURE_TAG", joinColumns = {
+        @JoinColumn(name = "PICTURE_ID")}, inverseJoinColumns = {@JoinColumn(name = "TAG_ID")
+    })
+    private List<Tag> tags;
 
     public Long getId() {
         return id;
@@ -138,5 +149,13 @@ public class Picture implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 }

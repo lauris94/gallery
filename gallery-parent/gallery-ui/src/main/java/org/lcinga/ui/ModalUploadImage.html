@@ -8,37 +8,49 @@
 </head>
 <wicket:panel>
     <div class="col-md-2"/>
-        <form wicket:id="pictureDetailsInputForm" class="col-md-8">
-            <div class="form-group" style="margin-top: 10px">
-                <label for="usr">
-                    <wicket:message key="nameLabel"/>
-                </label>
-                <input type="text" class="form-control" id="usr" wicket:id="name">
-            </div>
-            <div class="form-group" style="margin-top: 15px">
-                <label for="description">
-                    <wicket:message key="descriptionLabel"/>
-                </label>
-                <textarea class="form-control" rows="5" id="description" wicket:id="description"></textarea>
-            </div>
-            <div class="dropdown" style="margin-top: 15px">
-                <label for="dropdown">
-                    <wicket:message key="qualityLabel"/>
-                </label>
-                <select wicket:id="quality" class="btn btn-primary dropdown-toggle form-control" id="dropdown"></select>
-            </div>
-            <div style="margin-top: 15px">
-                <label for="file">
-                    <wicket:message key="uploadLabel"/>
-                </label>
-                <input wicket:id="largeImage" type="file" id="file" class="form-control"/>
-            </div>
-            <div class="form-group" wicket:id="feedback" style="margin-top: 15px"></div>
-            <div class="text-center" style="margin-top: 15px">
-                <button type="submit" class="btn btn-success" wicket:id="submitPicture">Submit</button>
-                <button class="btn btn-danger" wicket:id="cancel">Cancel</button>
-            </div>
-        </form>
+    <form wicket:id="pictureDetailsInputForm" class="col-md-8">
+        <div class="form-group" style="margin-top: 10px">
+            <label for="usr">
+                <wicket:message key="nameLabel"/>
+            </label>
+            <input type="text" class="form-control" id="usr" wicket:id="name">
+        </div>
+        <div class="form-group" style="margin-top: 15px">
+            <label for="description">
+                <wicket:message key="descriptionLabel"/>
+            </label>
+            <textarea class="form-control" rows="5" id="description" wicket:id="description"></textarea>
+        </div>
+        <div class="dropdown" style="margin-top: 15px">
+            <label for="dropdown">
+                <wicket:message key="qualityLabel"/>
+            </label>
+            <select wicket:id="quality" class="btn btn-primary dropdown-toggle form-control" id="dropdown"></select>
+        </div>
+        <div style="margin-top: 15px">
+            <label for="file">
+                <wicket:message key="uploadLabel"/>
+            </label>
+            <input wicket:id="largeImage" type="file" id="file" class="form-control"/>
+        </div>
+
+
+        <div>
+           <span wicket:id="group">
+<input type="checkbox" wicket:id="groupselector">check/uncheck all</input>
+               <tr wicket:id="persons">
+<td><input type="checkbox" wicket:id="checkbox"/></td>
+</tr>
+</span>
+        </div>
+
+
+        <div class="form-group" wicket:id="feedback" style="margin-top: 15px"></div>
+        <div class="text-center" style="margin-top: 15px">
+            <button type="submit" class="btn btn-success" wicket:id="submitPicture">Submit</button>
+            <button class="btn btn-danger" wicket:id="cancel">Cancel</button>
+        </div>
+    </form>
 
 </wicket:panel>
 </html>

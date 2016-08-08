@@ -9,6 +9,7 @@
 	http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
     <bean id="imageDaoBean" class="org.lcinga.dao.impl.PictureDaoImpl"/>
+    <bean id="tagDaoBean" class="org.lcinga.dao.impl.TagDaoImpl"/>
 
     <bean id="dataSources" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="oracle.jdbc.OracleDriver"/>

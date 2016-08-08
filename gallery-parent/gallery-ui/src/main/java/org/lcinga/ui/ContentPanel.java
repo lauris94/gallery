@@ -7,6 +7,7 @@ import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.list.PageableListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -16,12 +17,11 @@ import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.protocol.http.request.WebClientInfo;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.lcinga.model.entities.Picture;
+import org.lcinga.model.entities.Tag;
 import org.lcinga.model.enums.ImageQuality;
 import org.lcinga.service.PictureService;
 import org.lcinga.ui.utils.DateUtils;
 import org.lcinga.ui.utils.ImageUtils;
-
-import java.util.List;
 
 /**
  * Created by lcinga on 2016-08-01.
@@ -102,13 +102,25 @@ public class ContentPanel extends Panel {
             private static final long serialVersionUID = 3263873336191237351L;
 
             protected void populateItem(final ListItem<Picture> item) {
-
                 Picture picture = item.getModelObject();
                 item.add(new Label("uploadDate", DateUtils.convertDateToString(picture.getUploadDate())));
                 item.add(new Label("editDate", ObjectUtils.defaultIfNull(DateUtils.convertDateToString(picture.getEditDate()), "-")));
                 item.add(new Label("description", ObjectUtils.defaultIfNull(picture.getDescription(), "-")));
                 item.add(new Label("name", ObjectUtils.defaultIfNull(picture.getName(), "-")));
                 item.add(new Label("quality", ObjectUtils.defaultIfNull(makeQualityString(picture.getQuality()), "-")));
+
+                ListView tagList = new ListView<Tag>("tagList", picture.getTags()) {
+                    private static final long serialVersionUID = -5939313634996993401L;
+
+                    @Override
+                    protected void populateItem(ListItem<Tag> listItem) {
+                        Tag tag = listItem.getModelObject();
+                        listItem.add(new Label("tag", ObjectUtils.defaultIfNull(tag.getText(), "-")));
+                    }
+                };
+
+                item.add(tagList);
+
                 AjaxLink link = new AjaxLink("link") {
                     private static final long serialVersionUID = 5978113764969653661L;
 

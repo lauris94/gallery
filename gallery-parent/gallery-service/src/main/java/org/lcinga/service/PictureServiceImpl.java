@@ -64,10 +64,12 @@ public class PictureServiceImpl implements PictureService {
         pictureDao.update(picture);
     }
 
+    @Transactional(readOnly = true)
     public Picture getPicture(long id) {
         return pictureDao.find(id);
     }
 
+    @Transactional(readOnly = true)
     public List<Picture> getAllPictures() {
         return pictureDao.getAll();
     }

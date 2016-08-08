@@ -34,6 +34,9 @@
                         <wicket:message key="quality_th"></wicket:message>
                     </th>
                     <th class="text-center">
+                        <wicket:message key="tags_th"></wicket:message>
+                    </th>
+                    <th class="text-center">
                         <wicket:message key="action_th"></wicket:message>
                     </th>
                 </tr>
@@ -55,6 +58,13 @@
                     </td>
                     <td style="vertical-align: middle">
                         <span wicket:id="quality"/>
+                    </td>
+                    <td style="vertical-align: middle">
+                        <div style="max-height: 150px; overflow-y: scroll">
+                            <ul wicket:id="tagList" class="list-group" >
+                                <li class="list-group-item" wicket:id="tag"></li>
+                            </ul>
+                        </div>
                     </td>
                     <td style="vertical-align: middle">
                         <button type="button" wicket:id="editButton" class="btn btn-primary glyphicon glyphicon-edit" style="margin-right: 5px"/>
