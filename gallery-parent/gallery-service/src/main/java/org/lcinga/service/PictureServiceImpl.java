@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -59,9 +60,9 @@ public class PictureServiceImpl implements PictureService {
     }
 
     @Override
-    public void updatePicture(Picture picture) {
+    public Picture updatePicture(Picture picture) {
         picture.setEditDate(new Date());
-        pictureDao.update(picture);
+        return pictureDao.update(picture);
     }
 
     @Transactional(readOnly = true)
@@ -72,6 +73,11 @@ public class PictureServiceImpl implements PictureService {
     @Transactional(readOnly = true)
     public List<Picture> getAllPictures() {
         return pictureDao.getAll();
+    }
+
+    @Override
+    public void remove(Picture picture) {
+        pictureDao.delete(picture.getId());
     }
 
     private BufferedImage convertPictureToBuffered(byte[] largeImage) {

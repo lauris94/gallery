@@ -22,4 +22,9 @@ public class TagServiceImpl implements TagService {
     public List<Tag> getAllTags() {
         return tagDao.getAll();
     }
+
+    @Override
+    public Tag getTagByName(String name) {
+        return tagDao.getByName(name);
+    }
 }

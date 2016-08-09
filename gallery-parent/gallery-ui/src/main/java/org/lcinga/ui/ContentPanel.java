@@ -151,11 +151,22 @@ public class ContentPanel extends Panel {
                         modalWindow.show(ajaxRequestTarget);
                     }
                 };
+                AjaxLink removeButton = new AjaxLink("removeImageButton") {
+                    private static final long serialVersionUID = 4571337114798447811L;
+
+                    @Override
+                    public void onClick(AjaxRequestTarget ajaxRequestTarget) {
+                        pictureService.remove(item.getModelObject());
+                        ajaxRequestTarget.add(webMarkupContainer);
+                    }
+                };
+                add(removeButton);
                 add(link);
                 add(editButton);
                 link.add(ImageUtils.makeImage("image", item.getModelObject().getSmallImage()));
                 item.add(link);
                 item.add(editButton);
+                item.add(removeButton);
             }
         };
 

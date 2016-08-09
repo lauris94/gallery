@@ -60,15 +60,14 @@
                         <span wicket:id="quality"/>
                     </td>
                     <td style="vertical-align: middle">
-                        <div style="max-height: 150px; overflow-y: scroll">
-                            <ul wicket:id="tagList" class="list-group" >
-                                <li class="list-group-item" wicket:id="tag"></li>
-                            </ul>
+                        <div style="text-align: center" wicket:id="tagList">
+                            <h3><span class="label label-default" wicket:id="tag" id="existingTags"></span></h3>
                         </div>
                     </td>
                     <td style="vertical-align: middle">
-                        <button type="button" wicket:id="editButton" class="btn btn-primary glyphicon glyphicon-edit" style="margin-right: 5px"/>
-                        <button type="button" class="btn btn-primary btn-danger glyphicon glyphicon-remove"/>
+                        <button type="button" wicket:id="editButton" class="btn btn-primary glyphicon glyphicon-edit"
+                                style="margin-right: 5px"></button>
+                        <button type="button" wicket:id="removeImageButton" class="btn btn-primary btn-danger glyphicon glyphicon-remove"></button>
                     </td>
                 </tr>
             </table>
@@ -77,7 +76,7 @@
 
             <div class="text-center">
                 <button wicket:id="uploadImage" type="button" class="btn btn-lg btn-success">
-                    <wicket:message key="uplImageButtonText"></wicket:message>
+                    <wicket:message key="uplImageButtonText"/>
                 </button>
             </div>
         </div>

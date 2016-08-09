@@ -10,8 +10,8 @@ import java.util.List;
 public interface PictureService {
     void createPicture(Picture picture);
     void createPicture(Picture picture, int width, int height);
-    void updatePicture(Picture picture);
+    Picture updatePicture(Picture picture);
     Picture getPicture(long id);
     List<Picture> getAllPictures();
-
+    void remove(Picture picture);
 }

@@ -2,6 +2,7 @@ package org.lcinga.dao.impl;
 
 import org.lcinga.dao.TagDao;
 import org.lcinga.model.entities.Tag;
+import org.lcinga.model.entities.Tag_;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -21,5 +22,15 @@ public class TagDaoImpl extends GenericDaoImpl<Tag, Long> implements TagDao {
         CriteriaQuery<Tag> all = cq.select(rootEntry);
         TypedQuery<Tag> allQuery = em.createQuery(all);
         return allQuery.getResultList();
+    }
+
+    @Override
+    public Tag getByName(String name) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Tag> cq = cb.createQuery(Tag.class);
+        Root<Tag> rootEntry = cq.from(Tag.class);
+        CriteriaQuery<Tag> all = cq.select(rootEntry).where(cb.equal(rootEntry.get(Tag_.text), name));
+        TypedQuery<Tag> allQuery = em.createQuery(all);
+        return allQuery.getSingleResult();
     }
 }

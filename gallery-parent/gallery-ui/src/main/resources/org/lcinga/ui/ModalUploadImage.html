@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <style>
+
+    </style>
+</head>
+<wicket:panel>
+    <div class="col-md-2"/>
+    <div class="col-md-8">
+        <form wicket:id="pictureDetailsInputForm">
+            <div class="form-group" style="margin-top: 10px">
+                <label for="usr">
+                    <wicket:message key="nameLabel"/>
+                </label>
+                <input type="text" class="form-control" id="usr" wicket:id="name">
+            </div>
+            <div class="form-group" style="margin-top: 15px">
+                <label for="description">
+                    <wicket:message key="descriptionLabel"/>
+                </label>
+                <textarea class="form-control" rows="5" id="description" wicket:id="description"></textarea>
+            </div>
+            <div class="dropdown" style="margin-top: 15px">
+                <label for="dropdown">
+                    <wicket:message key="qualityLabel"/>
+                </label>
+                <select wicket:id="quality" class="btn btn-primary dropdown-toggle form-control" id="dropdown"></select>
+            </div>
+            <div style="margin-top: 15px">
+                <label for="file">
+                    <wicket:message key="uploadLabel"/>
+                </label>
+                <input wicket:id="largeImage" type="file" id="file" class="form-control"/>
+            </div>
+            <div style="margin-top: 15px; margin-bottom: 20px" wicket:id="container">
+                <div>
+                    <label for="tagDropdown">
+                        <wicket:message key="tagLabel"/>
+                    </label>
+                </div>
+                <div class="col-md-6">
+                    <select wicket:id="availableTags" class="btn btn-primary dropdown-toggle form-control"
+                            id="tagDropdown"></select>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary btn-success" wicket:id="addTagButton">
+                        <wicket:message key="addTagButtonText"/>
+                    </button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary btn-danger" wicket:id="removeTagButton">
+                        <wicket:message key="removeTagButtonText"/>
+                    </button>
+                </div>
+                <div style="margin-top: 50px" class="row">
+                    <div style="text-align: center" wicket:id="tags" class="col-md-4">
+                        <h3><span class="label label-default" wicket:id="text" id="existingTags"></span></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group"  style="margin-top: 50px" wicket:id="feedback">
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-success" wicket:id="submitPicture">Submit</button>
+                <button class="btn btn-danger" wicket:id="cancel">Cancel</button>
+            </div>
+        </form>
+    </div>
+</wicket:panel>
+</html>
