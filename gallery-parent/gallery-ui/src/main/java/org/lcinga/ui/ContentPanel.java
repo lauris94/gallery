@@ -6,6 +6,7 @@ import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.list.PageableListView;
@@ -47,7 +48,6 @@ public class ContentPanel extends Panel {
     public ContentPanel(String id) {
         super(id);
         webMarkupContainer = new WebMarkupContainer("container");
-        webMarkupContainer.setOutputMarkupId(true);
 
         imageListModel = new LoadableDetachableModel() {
             private static final long serialVersionUID = -873256375646275185L;
@@ -58,11 +58,26 @@ public class ContentPanel extends Panel {
             }
         };
 
+        TextField<String> searchField = new TextField<>("searchInput");
+        AjaxLink searchButton = new AjaxLink("searchButton") {
+            private static final long serialVersionUID = -616645725642216245L;
+
+            @Override
+            public void onClick(AjaxRequestTarget ajaxRequestTarget) {
+                String searchQuery = searchField.getConvertedInput();       //todo make search engine
+                System.out.println(searchQuery);
+            }
+        };
+
         makePicturesListView();
         modalWindow = new ModalWindow("modalWindow");
-        add(modalWindow);
         uploadImageClick();
+
+        add(modalWindow);
         add(webMarkupContainer);
+        webMarkupContainer.add(searchField);
+        webMarkupContainer.add(searchButton);
+        webMarkupContainer.setOutputMarkupId(true);
     }
 
     private void uploadImageClick() {
