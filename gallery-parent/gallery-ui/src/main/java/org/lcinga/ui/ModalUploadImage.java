@@ -13,6 +13,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.markup.html.list.PropertyListView;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
@@ -92,27 +93,26 @@ public abstract class ModalUploadImage extends Panel {
 
         form.setMultiPart(true);
 
-        List<Tag> allTags = tagService.getAllTags();
-        Picture picture = (Picture) getDefaultModelObject();
-        ListView<Tag> addedTagsListview = new ListView<Tag>("tagsListView", picture.getTags()) {
+        PropertyListView<Picture> addedTagsListview = new PropertyListView<Picture>("tags") {
             private static final long serialVersionUID = 4597174609935228612L;
 
             @Override
-            protected void populateItem(ListItem<Tag> listItem) {
-                listItem.add(new Label("text", listItem.getModelObject().getText()));
+            protected void populateItem(ListItem<Picture> listItem) {
+                listItem.add(new Label("text"));
             }
         };
-
         form.add(addedTagsListview);
 
-        if (picture.getId() != null){
+        List<Tag> allTags = tagService.getAllTags();
+        Picture picture = (Picture) getDefaultModelObject();
+        if (picture.getId() != null){                           //if image exist in DB, take all available tags
             allTags = getAvailableTags(picture, allTags);
         }
 
         List<String> tagNameList = new ArrayList<>();
         allTags.forEach(tag -> tagNameList.add(tag.getText()));
 
-        DropDownChoice<String> availableTagsDropDown = new DropDownChoice<>("availableTags", tagNameList);
+        DropDownChoice<String> availableTagsDropDown = new DropDownChoice<>("availableTags", new Model<>(), tagNameList);       //todo susikurt modeli
         form.add(availableTagsDropDown);
 
         fileUploadField = new FileUploadField("largeImage", new Model<>());
