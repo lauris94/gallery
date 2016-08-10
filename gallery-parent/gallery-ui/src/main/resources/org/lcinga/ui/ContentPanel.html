@@ -13,12 +13,20 @@
         <div class="col-md-2"></div>
         <div class="col-md-8" wicket:id="container">
             <div style="text-align: center; margin-top: 15px">
-                <div class="row">
-                    <input wicket:id="searchInput" type="text"/>
-                    <button class="btn btn-default" wicket:id="searchButton">
-                        Search
-                    </button>
-                </div>
+                <form wicket:id="searchForm">
+                    <div class="row">
+                        <div wicket:id="selectedTags">
+                        </div>
+                        <span wicket:id="searchType">
+                            <input type="radio"/>
+                            <input type="radio"/>
+                        </span>
+                        <input wicket:id="textInput" type="text"/>
+                        <button class="btn btn-default" wicket:id="searchButton" type="submit">
+                            Search
+                        </button>
+                    </div>
+                </form>
             </div>
             <table class="table table-bordered table-striped table-responsive table-with-vertical-align"
                    style="margin-top: 8px">
@@ -75,7 +83,8 @@
                     <td style="vertical-align: middle">
                         <button type="button" wicket:id="editButton" class="btn btn-primary glyphicon glyphicon-edit"
                                 style="margin-right: 5px"></button>
-                        <button type="button" wicket:id="removeImageButton" class="btn btn-primary btn-danger glyphicon glyphicon-remove"></button>
+                        <button type="button" wicket:id="removeImageButton"
+                                class="btn btn-primary btn-danger glyphicon glyphicon-remove"></button>
                     </td>
                 </tr>
             </table>

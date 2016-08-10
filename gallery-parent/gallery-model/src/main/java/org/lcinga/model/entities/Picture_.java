@@ -3,6 +3,7 @@ package org.lcinga.model.entities;
 import org.lcinga.model.enums.ImageQuality;
 
 import javax.annotation.Generated;
+import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import java.util.Date;
@@ -20,6 +21,6 @@ public abstract class Picture_ {
 	public static volatile SingularAttribute<Picture, Long> version;
 	public static volatile SingularAttribute<Picture, ImageQuality> quality;
 	public static volatile SingularAttribute<Picture, String> name;
-
+	public static volatile ListAttribute<Picture, Tag> tags;
 }
 

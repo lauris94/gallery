@@ -11,5 +11,4 @@ public abstract class Tag_ {
     public static volatile SingularAttribute<Tag, String> text;
     public static volatile SingularAttribute<Tag, Long> id;
     public static volatile SingularAttribute<Tag, Long> version;
-
 }

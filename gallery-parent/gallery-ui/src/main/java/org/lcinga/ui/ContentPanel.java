@@ -3,9 +3,13 @@ package org.lcinga.ui;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.CheckBoxMultipleChoice;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.RadioChoice;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -17,12 +21,18 @@ import org.apache.wicket.protocol.http.ClientProperties;
 import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.protocol.http.request.WebClientInfo;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.lcinga.model.dto.PictureSearch;
 import org.lcinga.model.entities.Picture;
 import org.lcinga.model.entities.Tag;
 import org.lcinga.model.enums.ImageQuality;
+import org.lcinga.service.PictureSearchService;
 import org.lcinga.service.PictureService;
+import org.lcinga.service.TagService;
 import org.lcinga.ui.utils.DateUtils;
 import org.lcinga.ui.utils.ImageUtils;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by lcinga on 2016-08-01.
@@ -41,43 +51,70 @@ public class ContentPanel extends Panel {
     private ModalUploadImage modalEditImage;
     private WebMarkupContainer webMarkupContainer;
     private LoadableDetachableModel imageListModel;
+    private List<Picture> foundPicturesList;
 
     @SpringBean
     private PictureService pictureService;
 
+    @SpringBean
+    private TagService tagService;
+
+    @SpringBean
+    private PictureSearchService pictureSearchService;
+
     public ContentPanel(String id) {
         super(id);
         webMarkupContainer = new WebMarkupContainer("container");
+        foundPicturesList = pictureService.getAllPictures();
 
         imageListModel = new LoadableDetachableModel() {
             private static final long serialVersionUID = -873256375646275185L;
 
             @Override
             protected Object load() {
-                return pictureService.getAllPictures();
-            }
-        };
-
-        TextField<String> searchField = new TextField<>("searchInput");
-        AjaxLink searchButton = new AjaxLink("searchButton") {
-            private static final long serialVersionUID = -616645725642216245L;
-
-            @Override
-            public void onClick(AjaxRequestTarget ajaxRequestTarget) {
-                String searchQuery = searchField.getConvertedInput();       //todo make search engine
-                System.out.println(searchQuery);
+                return foundPicturesList;
             }
         };
 
         makePicturesListView();
         modalWindow = new ModalWindow("modalWindow");
         uploadImageClick();
+        searchLogic();
 
         add(modalWindow);
         add(webMarkupContainer);
-        webMarkupContainer.add(searchField);
-        webMarkupContainer.add(searchButton);
         webMarkupContainer.setOutputMarkupId(true);
+    }
+
+    private void searchLogic() {
+        PictureSearch pictureSearchObject = new PictureSearch();
+        Form<PictureSearch> searchForm = new Form<PictureSearch>("searchForm", new CompoundPropertyModel<PictureSearch>(pictureSearchObject));
+
+        List<String> choices = Arrays.asList("With like", "Without like");
+        searchForm.add(new RadioChoice<>("searchType", choices));
+
+        List<Tag> tagChoices = tagService.getAllTags();
+
+        CheckBoxMultipleChoice<Tag> listLanguages = new CheckBoxMultipleChoice<Tag>("selectedTags", tagChoices);
+
+        TextField<String> searchField = new TextField<>("textInput");
+        AjaxSubmitLink searchButton = new AjaxSubmitLink("searchButton") {
+            private static final long serialVersionUID = -616645725642216245L;
+
+            @Override
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                super.onSubmit(target, form);
+                System.out.println(pictureSearchObject.getSelectedTags().size());
+                foundPicturesList = pictureSearchService.search(pictureSearchObject);
+                imageListModel.detach();
+                target.add(webMarkupContainer);
+            }
+        };
+
+        searchForm.add(listLanguages);
+        searchForm.add(searchField);
+        searchForm.add(searchButton);
+        webMarkupContainer.add(searchForm);
     }
 
     private void uploadImageClick() {

@@ -46,6 +46,11 @@ public class Tag implements Serializable{
     }
 
     @Override
+    public String toString() {
+        return text;
+    }
+
+    @Override
     public int hashCode() {
         return text != null ? text.hashCode() : 0;
     }
