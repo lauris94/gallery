@@ -8,6 +8,7 @@ import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.CheckBoxMultipleChoice;
+import org.apache.wicket.markup.html.form.EnumChoiceRenderer;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RadioChoice;
 import org.apache.wicket.markup.html.form.TextField;
@@ -88,10 +89,11 @@ public class ContentPanel extends Panel {
 
     private void searchLogic() {
         PictureSearch pictureSearchObject = new PictureSearch();
+
         Form<PictureSearch> searchForm = new Form<PictureSearch>("searchForm", new CompoundPropertyModel<PictureSearch>(pictureSearchObject));
 
-        List<String> choices = Arrays.asList("With like", "Without like");
-        searchForm.add(new RadioChoice<>("searchType", choices));
+        List<PictureSearch.SearchByNameStatus> choices = Arrays.asList(PictureSearch.SearchByNameStatus.values());
+        searchForm.add(new RadioChoice<>("searchByNameStatus", choices, new EnumChoiceRenderer<>()));
 
         List<Tag> tagChoices = tagService.getAllTags();
 

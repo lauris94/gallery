@@ -12,8 +12,21 @@ import java.util.List;
 public class PictureSearch implements Serializable{
 
     private String textInput;
-    private String searchType = "With like";
     private List<Tag> selectedTags = new ArrayList<>();
+    private SearchByNameStatus searchByNameStatus;
+
+    public enum SearchByNameStatus {
+        WITH_LIKE,
+        WITHOUT_LIKE
+    }
+
+    public SearchByNameStatus getSearchByNameStatus() {
+        return searchByNameStatus;
+    }
+
+    public void setSearchByNameStatus(SearchByNameStatus searchByNameStatus) {
+        this.searchByNameStatus = searchByNameStatus;
+    }
 
     public String getTextInput() {
         return textInput;
@@ -22,16 +35,6 @@ public class PictureSearch implements Serializable{
     public void setTextInput(String textInput) {
         this.textInput = textInput;
     }
-
-
-    public String getSearchType() {
-        return searchType;
-    }
-
-    public void setSearchType(String searchType) {
-        this.searchType = searchType;
-    }
-
 
     public List<Tag> getSelectedTags() {
         return selectedTags;

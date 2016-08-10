@@ -46,24 +46,21 @@ public class PictureDaoImpl extends GenericDaoImpl<Picture, Long> implements Pic
     private List<Predicate> buildPredicates(PictureSearch pictureSearchObject, CriteriaBuilder criteriaBuilder, Root<Picture> root, CriteriaQuery<Picture> criteriaQuery) {
         List<Predicate> predicates = new ArrayList<>();
 
-        if (pictureSearchObject.getTextInput() != null && !pictureSearchObject.getTextInput().isEmpty() && pictureSearchObject.getSearchType().equals("Without like")){
+        if (pictureSearchObject.getTextInput() != null && !pictureSearchObject.getTextInput().isEmpty() && pictureSearchObject.getSearchByNameStatus().equals(PictureSearch.SearchByNameStatus.WITHOUT_LIKE)){
             predicates.add(criteriaBuilder.equal(criteriaBuilder.upper(root.get(Picture_.name)), pictureSearchObject.getTextInput().toUpperCase()));
         }
-        if (pictureSearchObject.getTextInput() != null && !pictureSearchObject.getTextInput().isEmpty() && pictureSearchObject.getSearchType().equals("With like")){
+        if (pictureSearchObject.getTextInput() != null && !pictureSearchObject.getTextInput().isEmpty() && pictureSearchObject.getSearchByNameStatus().equals(PictureSearch.SearchByNameStatus.WITH_LIKE)){
             predicates.add(criteriaBuilder.like(criteriaBuilder.upper(root.get(Picture_.name)), pictureSearchObject.getTextInput().toUpperCase() + "%"));
         }
 
         if (pictureSearchObject.getSelectedTags().size() > 0){
             //pictureSearchObject.getSelectedTags().forEach(tag -> makeTagPredicates(tag, criteriaBuilder, root, criteriaQuery));       todo search by selected tags
 
-
-
         }
         return predicates;
     }
 
     private void makeTagPredicates(Tag tag, CriteriaBuilder criteriaBuilder, Root<Picture> root, CriteriaQuery<Picture> criteriaQuery) {
-
 
     }
 
