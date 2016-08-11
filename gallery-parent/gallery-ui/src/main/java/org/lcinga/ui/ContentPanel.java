@@ -31,9 +31,6 @@ import org.lcinga.service.PictureService;
 import org.lcinga.service.TagService;
 import org.lcinga.ui.utils.DateUtils;
 import org.lcinga.ui.utils.ImageUtils;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.Arrays;
 import java.util.List;
