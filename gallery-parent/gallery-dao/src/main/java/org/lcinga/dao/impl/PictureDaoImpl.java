@@ -49,7 +49,7 @@ public class PictureDaoImpl extends GenericDaoImpl<Picture, Long> implements Pic
             predicates.add(criteriaBuilder.equal(criteriaBuilder.upper(root.get(Picture_.name)), pictureSearchObject.getTextInput().toUpperCase()));
         }
         if (pictureSearchObject.getTextInput() != null && !pictureSearchObject.getTextInput().isEmpty() && pictureSearchObject.getSearchByNameStatus().equals(PictureSearch.SearchByNameStatus.WITH_LIKE)) {
-            predicates.add(criteriaBuilder.like(criteriaBuilder.upper(root.get(Picture_.name)), pictureSearchObject.getTextInput().toUpperCase() + "%"));
+            predicates.add(criteriaBuilder.like(criteriaBuilder.upper(root.get(Picture_.name)), "%" + pictureSearchObject.getTextInput().toUpperCase() + "%"));
         }
         if (pictureSearchObject.getSelectedTags().size() > 0) {
             pictureSearchObject.getSelectedTags().forEach(tag -> makeTagPredicates(tag, criteriaBuilder, root, predicates));

@@ -14,8 +14,7 @@ public class WicketApp extends WebApplication {
     }
 
     @Override
-    public void init()
-    {
+    public void init() {
         super.init();
         getComponentInstantiationListeners().add(new SpringComponentInjector(this));
     }

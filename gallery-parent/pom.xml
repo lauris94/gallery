@@ -23,6 +23,8 @@
         <wicket-version>7.4.0</wicket-version>
         <slf4j.version>1.7.21</slf4j.version>
         <commons.version>3.4</commons.version>
+        <springsecurity.version>4.1.1.RELEASE</springsecurity.version>
+
     </properties>
 
     <dependencyManagement>
@@ -69,10 +71,32 @@
                 <artifactId>wicket-spring</artifactId>
                 <version>${wicket-version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-auth-roles</artifactId>
+                <version>${wicket-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.wicket</groupId>
+                <artifactId>wicket-ioc</artifactId>
+                <version>${wicket-version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-web</artifactId>
+                <version>${springsecurity.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-config</artifactId>
+                <version>${springsecurity.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
