@@ -13,7 +13,7 @@ public class PictureSearch implements Serializable{
 
     private String textInput;
     private List<Tag> selectedTags = new ArrayList<>();
-    private SearchByNameStatus searchByNameStatus;
+    private SearchByNameStatus searchByNameStatus = SearchByNameStatus.WITH_LIKE;
 
     public enum SearchByNameStatus {
         WITH_LIKE,
