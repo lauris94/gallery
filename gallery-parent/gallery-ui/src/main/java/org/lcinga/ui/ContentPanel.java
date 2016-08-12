@@ -31,6 +31,8 @@ import org.lcinga.service.PictureService;
 import org.lcinga.service.TagService;
 import org.lcinga.ui.utils.DateUtils;
 import org.lcinga.ui.utils.ImageUtils;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Arrays;
 import java.util.List;
@@ -67,7 +69,6 @@ public class ContentPanel extends Panel {
         super(id);
         webMarkupContainer = new WebMarkupContainer("container");
         foundPicturesList = pictureService.getAllPictures();
-
         imageListModel = new LoadableDetachableModel() {
             private static final long serialVersionUID = -873256375646275185L;
 

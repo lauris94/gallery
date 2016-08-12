@@ -12,7 +12,6 @@ import java.util.List;
 /**
  * Created by lcinga on 2016-08-10.
  */
-@Transactional
 @Service
 public class PictureSearchServiceImpl implements PictureSearchService {
 
@@ -23,6 +22,7 @@ public class PictureSearchServiceImpl implements PictureSearchService {
         this.pictureDao = pictureDao;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Picture> search(PictureSearch pictureSearchObject) {
         return pictureDao.search(pictureSearchObject);

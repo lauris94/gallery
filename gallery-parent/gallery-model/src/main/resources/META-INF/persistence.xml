@@ -9,6 +9,7 @@
         <class>org.lcinga.model.entities.Picture</class>
         <class>org.lcinga.model.entities.Tag</class>
         <class>org.lcinga.model.entities.PictureSource</class>
+        <class>org.lcinga.model.entities.User</class>
         <jta-data-source></jta-data-source>
         <properties>
             <property name="hbm2ddl.auto" value="update"/>

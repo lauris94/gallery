@@ -18,7 +18,6 @@ import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 
-@Transactional
 @Service
 public class PictureServiceImpl implements PictureService {
 
@@ -31,6 +30,7 @@ public class PictureServiceImpl implements PictureService {
         this.pictureDao = pictureDao;
     }
 
+    @Transactional
     public void createPicture(Picture picture) {
         picture.setUploadDate(new Date());
         pictureDao.create(picture);
@@ -59,6 +59,7 @@ public class PictureServiceImpl implements PictureService {
         }
     }
 
+    @Transactional
     @Override
     public Picture updatePicture(Picture picture) {
         picture.setEditDate(new Date());
@@ -75,6 +76,7 @@ public class PictureServiceImpl implements PictureService {
         return pictureDao.getAll();
     }
 
+    @Transactional
     @Override
     public void remove(Picture picture) {
         pictureDao.delete(picture.getId());

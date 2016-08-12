@@ -23,6 +23,7 @@ public class TagServiceImpl implements TagService {
         return tagDao.getAll();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Tag getTagByName(String name) {
         return tagDao.getByName(name);

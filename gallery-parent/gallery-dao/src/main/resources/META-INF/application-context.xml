@@ -7,6 +7,7 @@
 
     <bean id="imageDaoBean" class="org.lcinga.dao.impl.PictureDaoImpl"/>
     <bean id="tagDaoBean" class="org.lcinga.dao.impl.TagDaoImpl"/>
+    <bean id="userDaoBean" class="org.lcinga.dao.impl.UserDaoImpl"/>
 
     <bean id="dataSources" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
