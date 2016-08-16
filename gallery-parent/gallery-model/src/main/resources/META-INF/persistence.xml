@@ -4,7 +4,7 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
-    <persistence-unit name="imageGalleryPU" transaction-type="RESOURCE_LOCAL" >
+    <persistence-unit name="imageGalleryPU" transaction-type="RESOURCE_LOCAL">
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <class>org.lcinga.model.entities.Picture</class>
         <class>org.lcinga.model.entities.Tag</class>

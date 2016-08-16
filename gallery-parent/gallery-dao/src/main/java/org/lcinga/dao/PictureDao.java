@@ -10,5 +10,6 @@ import java.util.List;
  */
 public interface PictureDao extends GenericDao<Picture, Long> {
     List<Picture> getAll();
+
     List<Picture> search(PictureSearch pictureSearchObject);
 }

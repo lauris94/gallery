@@ -9,5 +9,6 @@ import java.util.List;
  */
 public interface TagDao extends GenericDao<Tag, Long> {
     List<Tag> getAll();
+
     Tag getByName(String name);
 }

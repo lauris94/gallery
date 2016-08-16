@@ -16,7 +16,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "LAURIS_PICTURE_SOURCE")
-public class PictureSource implements Serializable{
+public class PictureSource implements Serializable {
     private static final long serialVersionUID = 2233890300529307847L;
 
     @Id
@@ -25,7 +25,7 @@ public class PictureSource implements Serializable{
     private Long id;
 
     @Lob
-    @Column(name="LARGE_IMAGE", nullable=false)
+    @Column(name = "LARGE_IMAGE", nullable = false)
     private byte[] largeImage;
 
     @Version

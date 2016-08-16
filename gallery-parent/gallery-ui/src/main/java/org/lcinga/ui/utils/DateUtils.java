@@ -13,10 +13,11 @@ import java.util.Date;
 public class DateUtils {
     private static final String TIMESTAMP_PATTERN = "yyyy-MM-dd HH:mm";
 
-    private DateUtils(){}
+    private DateUtils() {
+    }
 
     public static String convertDateToString(Date input) {
-        if (input == null){
+        if (input == null) {
             return null;
         }
         Instant instant = Instant.ofEpochMilli(input.getTime());

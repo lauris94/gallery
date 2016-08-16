@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by lcinga on 2016-08-10.
  */
-public class PictureSearch implements Serializable{
+public class PictureSearch implements Serializable {
 
     private String textInput;
     private List<Tag> selectedTags = new ArrayList<>();

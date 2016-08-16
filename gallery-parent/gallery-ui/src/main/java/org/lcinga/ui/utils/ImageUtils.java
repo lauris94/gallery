@@ -17,7 +17,9 @@ import java.io.File;
 public class ImageUtils {
 
     private static final Logger logger = Logger.getLogger(ModalUploadImage.class);
-    private ImageUtils(){}
+
+    private ImageUtils() {
+    }
 
     public static NonCachingImage makeImage(String tagID, final byte[] item) {
         final DynamicImageResource dynamicImageResource = new DynamicImageResource() {
@@ -39,14 +41,13 @@ public class ImageUtils {
         return new NonCachingImage(tagID, abstractReadOnlyModel);
     }
 
-    public static byte[] getImageBytesFromInput(FileUploadField fileUploadField){
+    public static byte[] getImageBytesFromInput(FileUploadField fileUploadField) {
         final FileUpload uploadedImage = fileUploadField.getFileUpload();
         try {
             File newFile = new File(uploadedImage.getClientFileName());
             uploadedImage.writeTo(newFile);
             return Files.readBytes(newFile);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error("Error on creating image");
         }
         return null;

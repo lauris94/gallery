@@ -62,7 +62,7 @@ public class Picture implements Serializable {
 
     @ManyToMany()
     @JoinTable(name = "LAURIS_PICTURE_TAG", joinColumns = {
-        @JoinColumn(name = "PICTURE_ID")}, inverseJoinColumns = {@JoinColumn(name = "TAG_ID")
+            @JoinColumn(name = "PICTURE_ID")}, inverseJoinColumns = {@JoinColumn(name = "TAG_ID")
     })
     private List<Tag> tags;
 

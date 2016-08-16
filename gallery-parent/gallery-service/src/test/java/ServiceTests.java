@@ -46,7 +46,7 @@ public class ServiceTests {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         byte[] buf = new byte[1024];
         try {
-            for (int readNum; (readNum = fis.read(buf)) != -1;) {
+            for (int readNum; (readNum = fis.read(buf)) != -1; ) {
                 //Writes to this byte array output stream
                 bos.write(buf, 0, readNum);
                 System.out.println("read " + readNum + " bytes,");

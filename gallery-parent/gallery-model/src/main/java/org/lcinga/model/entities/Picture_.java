@@ -12,15 +12,15 @@ import java.util.Date;
 @StaticMetamodel(Picture.class)
 public abstract class Picture_ {
 
-	public static volatile SingularAttribute<Picture, PictureSource> pictureSource;
-	public static volatile SingularAttribute<Picture, byte[]> smallImage;
-	public static volatile SingularAttribute<Picture, Date> uploadDate;
-	public static volatile SingularAttribute<Picture, String> description;
-	public static volatile SingularAttribute<Picture, Long> id;
-	public static volatile SingularAttribute<Picture, Date> editDate;
-	public static volatile SingularAttribute<Picture, Long> version;
-	public static volatile SingularAttribute<Picture, ImageQuality> quality;
-	public static volatile SingularAttribute<Picture, String> name;
-	public static volatile ListAttribute<Picture, Tag> tags;
+    public static volatile SingularAttribute<Picture, PictureSource> pictureSource;
+    public static volatile SingularAttribute<Picture, byte[]> smallImage;
+    public static volatile SingularAttribute<Picture, Date> uploadDate;
+    public static volatile SingularAttribute<Picture, String> description;
+    public static volatile SingularAttribute<Picture, Long> id;
+    public static volatile SingularAttribute<Picture, Date> editDate;
+    public static volatile SingularAttribute<Picture, Long> version;
+    public static volatile SingularAttribute<Picture, ImageQuality> quality;
+    public static volatile SingularAttribute<Picture, String> name;
+    public static volatile ListAttribute<Picture, Tag> tags;
 }
 

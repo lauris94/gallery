@@ -27,13 +27,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         User user = userDao.findByUsername(username);
 
-        if (user == null){
+        if (user == null) {
             throw new UsernameNotFoundException("Username not found!");
         }
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>();
 
-        switch (user.getUserRole()){
+        switch (user.getUserRole()) {
             case ADMIN:
                 grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
                 break;

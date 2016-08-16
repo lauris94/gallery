@@ -8,9 +8,9 @@ import javax.persistence.metamodel.StaticMetamodel;
 @StaticMetamodel(PictureSource.class)
 public abstract class PictureSource_ {
 
-	public static volatile SingularAttribute<PictureSource, byte[]> largeImage;
-	public static volatile SingularAttribute<PictureSource, Long> id;
-	public static volatile SingularAttribute<PictureSource, Long> version;
+    public static volatile SingularAttribute<PictureSource, byte[]> largeImage;
+    public static volatile SingularAttribute<PictureSource, Long> id;
+    public static volatile SingularAttribute<PictureSource, Long> version;
 
 }
 

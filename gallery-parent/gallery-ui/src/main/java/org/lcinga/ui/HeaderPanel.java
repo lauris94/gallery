@@ -1,13 +1,9 @@
 package org.lcinga.ui;
 
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.springframework.security.core.context.SecurityContextHolder;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by lcinga on 2016-08-01.
@@ -21,10 +17,9 @@ public class HeaderPanel extends Panel {
         super(id);
 
         SecurityContextHolder.getContext().getAuthentication().getAuthorities().forEach(authority -> {
-            if (authority.getAuthority().toLowerCase().equals("role_admin")){
+            if (authority.getAuthority().toLowerCase().equals("role_admin")) {
                 role = getString("admin_role");
-            }
-            else if (authority.getAuthority().toLowerCase().equals("role_user")){
+            } else if (authority.getAuthority().toLowerCase().equals("role_user")) {
                 role = getString("user_role");
             }
         });
