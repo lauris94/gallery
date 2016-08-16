@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
-
 @Service
 public class PictureServiceImpl implements PictureService {
 
@@ -36,6 +35,7 @@ public class PictureServiceImpl implements PictureService {
         pictureDao.create(picture);
     }
 
+    @Transactional
     public void createPicture(Picture picture, int width, int height) {
         BufferedImage bufferedImage = convertPictureToBuffered(picture.getPictureSource().getLargeImage());
 

@@ -171,8 +171,7 @@ public abstract class ModalUploadImage extends Panel {
             private static final long serialVersionUID = 3342574116572820400L;
 
             @Override
-            protected void onAfterSubmit(AjaxRequestTarget target, Form<?> form) {
-                super.onAfterSubmit(target, form);
+            protected void onAfterSubmit(AjaxRequestTarget target, Form form) {
                 target.add(feedbackPanel);
                 if (!form.hasErrorMessage()) {
                     modalWindow.close(target);
@@ -182,10 +181,11 @@ public abstract class ModalUploadImage extends Panel {
 
             @Override
             protected void onError(AjaxRequestTarget target, Form<?> form) {
-                target.add(feedbackPanel);
                 super.onError(target, form);
+                target.add(feedbackPanel);
             }
         };
+
 
         AjaxLink cancelButton = new AjaxLink("cancel") {
             @Override

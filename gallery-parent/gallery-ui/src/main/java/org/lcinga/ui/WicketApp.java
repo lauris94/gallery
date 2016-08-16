@@ -5,12 +5,14 @@ import org.apache.wicket.authroles.authentication.AbstractAuthenticatedWebSessio
 import org.apache.wicket.authroles.authentication.AuthenticatedWebApplication;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
+import org.lcinga.ui.security.CustomWebSession;
 
 /**
  * Created by lcinga on 2016-07-29.
  */
 public class WicketApp extends AuthenticatedWebApplication {
 
+    @Override
     public Class<? extends Page> getHomePage() {
         return TemplatePage.class;
     }

@@ -1,6 +1,7 @@
 package org.lcinga.ui;
 
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
@@ -32,9 +33,14 @@ import org.lcinga.service.TagService;
 import org.lcinga.ui.utils.DateUtils;
 import org.lcinga.ui.utils.ImageUtils;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.security.Principal;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -218,6 +224,9 @@ public class ContentPanel extends Panel {
                         ajaxRequestTarget.add(webMarkupContainer);
                     }
                 };
+
+                checkComponentVisibility(editButton, removeButton);
+
                 add(removeButton);
                 add(link);
                 add(editButton);
@@ -240,6 +249,19 @@ public class ContentPanel extends Panel {
         listView.setOutputMarkupId(true);
         webMarkupContainer.add(pager);
         webMarkupContainer.add(listView);
+    }
+
+    private void checkComponentVisibility(AjaxLink editButton, AjaxLink removeButton) {
+
+        List<GrantedAuthority> authorities = (List<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+
+        authorities.forEach(grantedAuthority -> {
+            if (grantedAuthority.getAuthority().equals("ROLE_USER")){
+                editButton.setVisible(false);
+                removeButton.setVisible(false);
+            }
+        });
+
     }
 
     private String makeQualityString(ImageQuality imageQuality) {
