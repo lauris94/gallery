@@ -52,7 +52,6 @@ public abstract class ModalUploadImage extends Panel {
     private FileUploadField fileUploadField;
     private WebMarkupContainer webMarkupContainer;
     private Picture selectedPicture;
-
     private Tag selectedTag;
 
     @SpringBean
@@ -185,7 +184,6 @@ public abstract class ModalUploadImage extends Panel {
                 target.add(feedbackPanel);
             }
         };
-
 
         AjaxLink cancelButton = new AjaxLink("cancel") {
             @Override

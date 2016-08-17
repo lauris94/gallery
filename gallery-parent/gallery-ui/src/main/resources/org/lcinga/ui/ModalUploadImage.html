@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html xmlns:wicket="http://wicket.apache.org" xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:wicket="http://wicket.apache.org" xmlns="http://www.w3.org/1999/xhtml"
+>
 <head>
     <meta charset="utf-8"/>
 </head>
 <wicket:panel>
     <div class="col-md-2"/>
     <div class="col-md-8">
-        <form wicket:id="pictureDetailsInputForm">
+        <form wicket:id="pictureDetailsInputForm" target="upload_target">
             <div class="form-group" style="margin-top: 10px">
                 <label for="usr">
                     <wicket:message key="nameLabel"/>
@@ -17,13 +18,13 @@
                 <label for="description">
                     <wicket:message key="descriptionLabel"/>
                 </label>
-                <textarea class="form-control" rows="5" id="description" wicket:id="description"></textarea>
+                <textarea class="form-control" rows="5" id="description" wicket:id="description"/>
             </div>
             <div class="dropdown" style="margin-top: 15px">
                 <label for="dropdown">
                     <wicket:message key="qualityLabel"/>
                 </label>
-                <select wicket:id="quality" class="btn btn-primary dropdown-toggle form-control" id="dropdown"></select>
+                <select wicket:id="quality" class="btn btn-primary dropdown-toggle form-control" id="dropdown"/>
             </div>
             <div style="margin-top: 15px">
                 <label for="file">
@@ -39,7 +40,7 @@
                 </div>
                 <div class="col-md-6">
                     <select wicket:id="availableTags" class="btn btn-primary dropdown-toggle form-control"
-                            id="tagDropdown"></select>
+                            id="tagDropdown"/>
                 </div>
                 <div class="col-md-3">
                     <button type="button" class="btn btn-primary btn-success" wicket:id="addTagButton">
@@ -60,7 +61,7 @@
             <div class="form-group" style="margin-top: 50px" wicket:id="feedback">
             </div>
             <div class="text-center">
-                <button type="submit" class="btn btn-success" wicket:id="submitPicture">Submit</button>
+                <button class="btn btn-success" wicket:id="submitPicture">Submit</button>
                 <button class="btn btn-danger" wicket:id="cancel">Cancel</button>
             </div>
         </form>

@@ -183,7 +183,8 @@ public class ContentPanel extends Panel {
                     @Override
                     public void onClick(AjaxRequestTarget ajaxRequestTarget) {
                         setModalWindowSize(MODAL_WIDTH_MULTIPLIER_IMAGE, MODAL_HEIGHT_MULTIPLIER_IMAGE);
-                        modalLargeImage = new ModalLargeImage(modalWindow.getContentId(), item.getModelObject());
+                        Picture picture = pictureService.getPicture(item.getModelObject().getId());
+                        modalLargeImage = new ModalLargeImage(modalWindow.getContentId(), picture);
                         modalWindow.setContent(modalLargeImage);
                         modalWindow.show(ajaxRequestTarget);
                     }
@@ -194,7 +195,8 @@ public class ContentPanel extends Panel {
                     @Override
                     public void onClick(AjaxRequestTarget ajaxRequestTarget) {
                         setModalWindowSize(MODAL_WIDTH_MULTIPLIER, MODAL_HEIGHT_MULTIPLIER);
-                        modalEditImage = new ModalUploadImage(ModalWindow.CONTENT_ID, new CompoundPropertyModel<>(item.getModelObject()), modalWindow) {
+                        Picture picture = pictureService.getPicture(item.getModelObject().getId());
+                        modalEditImage = new ModalUploadImage(ModalWindow.CONTENT_ID, new CompoundPropertyModel<>(picture), modalWindow) {
                             private static final long serialVersionUID = -2950275701529876148L;
 
                             @Override

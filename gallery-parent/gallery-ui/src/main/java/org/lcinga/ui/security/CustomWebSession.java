@@ -10,17 +10,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
-
-import javax.servlet.http.HttpSession;
 
 /**
  * Created by Laurynas Cinga on 2016-08-12.
  */
 public class CustomWebSession extends AuthenticatedWebSession {
     private static final long serialVersionUID = -5643825105934627535L;
-
-    private HttpSession httpSession;
 
     @SpringBean(name = "authenticationManager")
     private AuthenticationManager authenticationManager;
@@ -31,19 +26,15 @@ public class CustomWebSession extends AuthenticatedWebSession {
 
     @Override
     protected boolean authenticate(String username, String password) {
+        boolean authenticated;
         try {
             Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-            if (auth.isAuthenticated()) {
-                SecurityContextHolder.getContext().setAuthentication(auth);
-                httpSession.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
-                        SecurityContextHolder.getContext());
-                return true;
-            } else {
-                return false;
-            }
+            SecurityContextHolder.getContext().setAuthentication(auth);
+            authenticated = auth.isAuthenticated();
         } catch (AuthenticationException e) {
-            return false;
+            authenticated = false;
         }
+        return authenticated;
     }
 
     @Override
