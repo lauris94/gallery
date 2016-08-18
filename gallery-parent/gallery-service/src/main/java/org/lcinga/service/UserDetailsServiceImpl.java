@@ -31,7 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("Username not found!");
         }
 
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>();
+        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 
         switch (user.getUserRole()) {
             case ADMIN:

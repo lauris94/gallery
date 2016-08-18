@@ -23,4 +23,5 @@
     </authentication-manager>
 
     <beans:bean id="userDetailsServiceImpl" class="org.lcinga.service.UserDetailsServiceImpl"/>
+
 </beans:beans>

@@ -4,6 +4,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.PasswordTextField;
 import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.lcinga.model.entities.User;
@@ -25,6 +26,11 @@ public class LoginPage extends WebPage {
         form.add(new TextField<String>("username", new PropertyModel<>(user, "username")));
         form.add(new PasswordTextField("password", new PropertyModel<>(user, "password")));
 
+        FeedbackPanel feedbackPanel = new FeedbackPanel("feedback");
+
+        feedbackPanel.setOutputMarkupId(true);
+
+        form.add(feedbackPanel);
         add(form);
     }
 }

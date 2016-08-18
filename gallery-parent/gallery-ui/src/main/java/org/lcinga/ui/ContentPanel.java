@@ -98,7 +98,7 @@ public class ContentPanel extends Panel {
 
         List<Tag> tagChoices = tagService.getAllTags();
 
-        CheckBoxMultipleChoice<Tag> listLanguages = new CheckBoxMultipleChoice<Tag>("selectedTags", tagChoices);
+        CheckBoxMultipleChoice<Tag> listLanguages = new CheckBoxMultipleChoice<>("selectedTags", tagChoices);
 
         TextField<String> searchField = new TextField<>("textInput");
         AjaxSubmitLink searchButton = new AjaxSubmitLink("searchButton") {
@@ -175,9 +175,7 @@ public class ContentPanel extends Panel {
                     }
                 };
 
-                item.add(tagList);
-
-                AjaxLink link = new AjaxLink("link") {
+                AjaxLink link = new AjaxLink("largeImageLink") {
                     private static final long serialVersionUID = 5978113764969653661L;
 
                     @Override
@@ -189,6 +187,7 @@ public class ContentPanel extends Panel {
                         modalWindow.show(ajaxRequestTarget);
                     }
                 };
+
                 AjaxLink editButton = new AjaxLink("editButton") {
                     private static final long serialVersionUID = -207801702236802329L;
 
@@ -197,7 +196,7 @@ public class ContentPanel extends Panel {
                         setModalWindowSize(MODAL_WIDTH_MULTIPLIER, MODAL_HEIGHT_MULTIPLIER);
                         Picture picture = pictureService.getPicture(item.getModelObject().getId());
                         modalEditImage = new ModalUploadImage(ModalWindow.CONTENT_ID, new CompoundPropertyModel<>(picture), modalWindow) {
-                            private static final long serialVersionUID = -2950275701529876148L;
+                            private static final long serialVersionUID = -2856395734931647363L;
 
                             @Override
                             public void onUpload(AjaxRequestTarget target) {
@@ -210,6 +209,7 @@ public class ContentPanel extends Panel {
                         modalWindow.show(ajaxRequestTarget);
                     }
                 };
+
                 AjaxLink removeButton = new AjaxLink("removeImageButton") {
                     private static final long serialVersionUID = 4571337114798447811L;
 
@@ -230,6 +230,7 @@ public class ContentPanel extends Panel {
                 item.add(link);
                 item.add(editButton);
                 item.add(removeButton);
+                item.add(tagList);
             }
         };
 
@@ -248,7 +249,6 @@ public class ContentPanel extends Panel {
     }
 
     private void checkComponentVisibility(AjaxLink editButton, AjaxLink removeButton) {
-
         List<GrantedAuthority> authorities = (List<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
 
         authorities.forEach(grantedAuthority -> {
@@ -257,7 +257,6 @@ public class ContentPanel extends Panel {
                 removeButton.setVisible(false);
             }
         });
-
     }
 
     private String makeQualityString(ImageQuality imageQuality) {

@@ -1,5 +1,6 @@
 package org.lcinga.ui.security;
 
+import org.apache.wicket.Session;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.authroles.authorization.strategies.role.Roles;
 import org.apache.wicket.request.Request;
@@ -22,6 +23,7 @@ public class CustomWebSession extends AuthenticatedWebSession {
 
     public CustomWebSession(Request request) {
         super(request);
+        //Injector.get().inject(this);
     }
 
     @Override
@@ -51,5 +53,9 @@ public class CustomWebSession extends AuthenticatedWebSession {
         for (GrantedAuthority authority : authentication.getAuthorities()) {
             roles.add(authority.getAuthority());
         }
+    }
+
+    public static CustomWebSession getCustomWebSession() {
+        return (CustomWebSession) Session.get();
     }
 }
